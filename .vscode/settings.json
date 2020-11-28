@@ -1,8 +1,9 @@
 {
-  "[javascript]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true
-    }
-  },
-  // "prettier.disableLanguages": ["javascript"]
+	// "[javascript]": {
+	//   "editor.codeActionsOnSave": {
+	//     "source.fixAll": true
+	//   }
+	// },
+	"editor.formatOnSave": true,
+	"prettier.disableLanguages": ["html"]
 }

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es2020",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./components/*/index"]
+    }, 
+    "checkJs": true,
+    "moduleResolution": "node"
+  },
+
+  "exclude": ["node_modules"]
+}

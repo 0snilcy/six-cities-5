@@ -3,12 +3,12 @@ env:
   browser: true
   commonjs: true
 
-extends: ['htmlacademy/es6', 'plugin:react/recommended']
+extends: ['htmlacademy/es6', 'plugin:react/recommended', 'prettier']
 
 parserOptions:
   ecmaFeatures:
     jsx: true
-  ecmaVersion: 6
+  ecmaVersion: 10
   sourceType: module
 
 plugins: ['react']
@@ -18,4 +18,4 @@ settings:
     version: '16'
 
 rules:
-  object-curly-spacing: [2, "always"]
+  object-curly-spacing: [2, 'always']

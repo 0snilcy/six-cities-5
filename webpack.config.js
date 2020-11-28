@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const path = require(`path`);
 
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, `public`),
     open: false,
     port: 1337,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -25,6 +27,7 @@ module.exports = {
   },
   resolve: {
     extensions: [`.js`, `.jsx`],
+    modules: [path.resolve(__dirname, `src`), `node_modules`],
   },
   devtool: `source-map`,
 };
