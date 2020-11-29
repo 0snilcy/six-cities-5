@@ -1,25 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import leaflet from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import * as pt from 'types'
 
-export const Map = ({ points = [] }) => {
+const icon = leaflet.icon({
+	iconUrl: `img/pin.svg`,
+	iconSize: [30, 30],
+})
+
+export const Map = ({ locations = [], city }) => {
+	const [map, setMap] = useState()
+	const renderPins = (ctx, pins) =>
+		pins.forEach(({ latitude, longitude }) =>
+			leaflet.marker([latitude, longitude], { icon }).addTo(ctx)
+		)
+
 	useEffect(() => {
-		const city = [52.38333, 4.9]
-		const icon = leaflet.icon({
-			iconUrl: `img/pin.svg`,
-			iconSize: [30, 30],
-		})
-
-		const zoom = 12
-
-		const map = leaflet.map(`map`, {
-			center: city,
-			zoom,
+		const _map = leaflet.map(`map`, {
+			center: [city.latitude, city.longitude],
+			zoom: city.zoom,
 			zoomControl: false,
 			marker: true,
 		})
-		map.setView(city, zoom)
+		_map.setView([city.latitude, city.longitude], city.zoom)
 
 		leaflet
 			.tileLayer(
@@ -29,12 +32,17 @@ export const Map = ({ points = [] }) => {
 						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 				}
 			)
-			.addTo(map)
+			.addTo(_map)
+		setMap(_map)
+		renderPins(_map, locations)
+	}, [])
 
-		points.forEach(({ lat, lng }) =>
-			leaflet.marker([lat, lng], { icon }).addTo(map)
-		)
-	})
+	useEffect(() => {
+		if (map) {
+			renderPins(map, locations)
+			map.setView([city.latitude, city.longitude], city.zoom)
+		}
+	}, [locations])
 
 	return (
 		<div
@@ -48,5 +56,6 @@ export const Map = ({ points = [] }) => {
 }
 
 Map.propTypes = {
-	points: pt.mapPoints,
+	city: pt.location,
+	locations: pt.locations,
 }

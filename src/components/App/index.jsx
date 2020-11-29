@@ -6,22 +6,22 @@ import { PageLogin } from 'components/PageLogin'
 import { PageFavorite } from 'components/PageFavorite'
 import { PageOffer } from 'components/PageOffer'
 
-export const App = ({ offers, favorites }) => {
+export const App = ({ hotels }) => {
 	return (
 		<BrowserRouter>
 			<Switch>
 				<Route exact path='/'>
-					<PageMain offers={offers} />
+					<PageMain hotels={hotels} />
 				</Route>
 				<Route exact path='/login' component={PageLogin} />
 				<Route exact path='/favorites'>
-					<PageFavorite favoriteLocations={favorites} />
+					<PageFavorite hotels={hotels} />
 				</Route>
 				<Route exact path='/offer/:id'>
 					{({ match }) => {
-						const offer = offers.find(({ id }) => match.params.id === id)
-						if (!offer) return <Redirect to='/404' />
-						return <PageOffer offer={offer} />
+						const hotel = hotels.find(({ id }) => match.params.id === id)
+						if (!hotel) return <Redirect to='/404' />
+						return <PageOffer offer={hotel} />
 					}}
 				</Route>
 				<Route path='*'>404</Route>
@@ -32,6 +32,5 @@ export const App = ({ offers, favorites }) => {
 }
 
 App.propTypes = {
-	offers: pt.offers,
-	favorites: pt.favoriteLocations,
+	hotels: pt.hotels,
 }

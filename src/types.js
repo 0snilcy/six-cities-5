@@ -1,51 +1,58 @@
-import { CardListType } from 'constants'
+/* eslint-disable camelcase */
 import pt from 'prop-types'
 
 export const fn = pt.func.isRequired
 export const number = pt.number.isRequired
 export const string = pt.string.isRequired
+export const _string = pt.string
 export const bool = pt.bool.isRequired
+export const stringArr = pt.arrayOf(string)
 
-export const offer = pt.shape({
-	title: string,
-	rating: number,
-	price: number,
-	isFavorite: bool,
-	isPremium: bool,
-	type: pt.oneOf([`Apartment`, `Private room`]),
-	image: string,
-	smallImage: string,
+export const location = pt.shape({
+	latitude: number,
+	longitude: number,
+	zoom: number,
 }).isRequired
 
-export const offers = pt.arrayOf(offer)
+export const locations = pt.arrayOf(location).isRequired
 
-const favoriteLocation = pt.shape({
-	city: string,
-	offers,
-}).isRequired
-
-export const favoriteLocations = pt.arrayOf(favoriteLocation)
-
-export const offerPage = pt.shape({
-	id: string,
-	offer,
-}).isRequired
-
-export const listTypes = pt.oneOf(Object.values(CardListType))
-
-const mapPoint = pt.shape({
-	lat: number,
-	lng: number,
-})
-
-export const mapPoints = pt.arrayOf(mapPoint)
-
-const review = pt.shape({
+const user = pt.shape({
+	avatar_url: string,
+	id: number,
+	is_pro: bool,
 	name: string,
-	avatar: string,
-	rating: number,
-	text: string,
-	date: string,
-})
+}).isRequired
 
-export const reviews = pt.arrayOf(review)
+export const hotel = pt.shape({
+	bedrooms: number,
+	city: pt.shape({
+		location,
+		name: string,
+	}),
+	description: string,
+	goods: stringArr,
+	host: user,
+	id: number,
+	images: stringArr,
+	is_favorite: bool,
+	is_premium: bool,
+	location,
+	max_adults: number,
+	preview_image: string,
+	price: number,
+	rating: number,
+	title: string,
+	type: string,
+}).isRequired
+
+export const hotels = pt.arrayOf(hotel).isRequired
+
+export const comment = pt.shape({
+	comment: string,
+	date: string,
+	id: number,
+	rating: number,
+	user,
+}).isRequired
+
+export const comments = pt.arrayOf(comment).isRequired

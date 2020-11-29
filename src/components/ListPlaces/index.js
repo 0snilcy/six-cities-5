@@ -4,7 +4,7 @@ import * as pt from 'types'
 import { CardPlace } from '../CardPlace'
 import cl from 'classnames'
 
-export const ListPlaces = ({ offers, type = CardListType.MAIN }) => {
+export const ListPlaces = ({ hotels, type = CardListType.MAIN }) => {
 	const [activeCard, setActiveCard] = useState()
 
 	return (
@@ -14,12 +14,12 @@ export const ListPlaces = ({ offers, type = CardListType.MAIN }) => {
 				'near-places__list': type === CardListType.ROW,
 			})}
 		>
-			{offers.map((offer) => (
+			{hotels.map((hotel) => (
 				<CardPlace
-					id={offer.id}
-					offer={offer}
-					key={offer.id}
-					onHover={() => setActiveCard(offer.id)}
+					id={hotel.id}
+					key={hotel.id}
+					hotel={hotel}
+					onHover={() => setActiveCard(hotel.id)}
 					onLeave={() => setActiveCard(null)}
 				/>
 			))}
@@ -28,6 +28,6 @@ export const ListPlaces = ({ offers, type = CardListType.MAIN }) => {
 }
 
 ListPlaces.propTypes = {
-	offers: pt.offers,
-	type: pt.listTypes,
+	hotels: pt.hotels,
+	type: pt._string,
 }

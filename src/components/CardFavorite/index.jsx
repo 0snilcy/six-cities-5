@@ -2,8 +2,15 @@ import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 
-export const CardFavorite = ({ offer }) => {
-	const { title, type, rating, isFavorite, price, smallImage } = offer
+export const CardFavorite = ({ hotel }) => {
+	const {
+		title,
+		type,
+		rating,
+		is_favorite: isFavorite,
+		price,
+		preview_image: smallImage,
+	} = hotel
 	return (
 		<article className='favorites__card place-card'>
 			<div className='favorites__image-wrapper place-card__image-wrapper'>
@@ -57,5 +64,5 @@ export const CardFavorite = ({ offer }) => {
 }
 
 CardFavorite.propTypes = {
-	offer: pt.offer,
+	hotel: pt.hotel,
 }

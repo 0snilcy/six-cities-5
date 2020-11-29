@@ -3,7 +3,7 @@ import * as pt from 'types'
 import { CardFavorite } from 'components/CardFavorite'
 import { Header } from 'components/Header'
 
-export const PageFavorite = ({ favoriteLocations }) => {
+export const PageFavorite = ({ hotels }) => {
 	return (
 		<div className='page'>
 			<Header />
@@ -13,7 +13,15 @@ export const PageFavorite = ({ favoriteLocations }) => {
 					<section className='favorites'>
 						<h1 className='favorites__title'>Saved listing</h1>
 						<ul className='favorites__list'>
-							{favoriteLocations.map(({ city, offers }) => {
+							{Object.entries(
+								hotels.reduce((result, hotel) => {
+									const city = hotel.city.name
+									const cityHotels = result[city]
+
+									result[city] = cityHotels ? [...cityHotels, hotel] : [hotel]
+									return result
+								}, {})
+							).map(([city, cityHotels]) => {
 								return (
 									<li className='favorites__locations-items' key={city}>
 										<div className='favorites__locations locations locations--current'>
@@ -24,8 +32,8 @@ export const PageFavorite = ({ favoriteLocations }) => {
 											</div>
 										</div>
 										<div className='favorites__places'>
-											{offers.map((offer, id) => (
-												<CardFavorite offer={offer} key={offer.title + id} />
+											{cityHotels.map((hotel) => (
+												<CardFavorite hotel={hotel} key={hotel.id} />
 											))}
 										</div>
 									</li>
@@ -52,5 +60,5 @@ export const PageFavorite = ({ favoriteLocations }) => {
 }
 
 PageFavorite.propTypes = {
-	favoriteLocations: pt.favoriteLocations,
+	hotels: pt.hotels,
 }

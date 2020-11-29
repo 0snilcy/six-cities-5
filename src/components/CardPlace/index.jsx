@@ -4,8 +4,16 @@ import cl from 'classnames'
 import { Link } from 'react-router-dom'
 import { Route } from 'constants'
 
-export const CardPlace = ({ id, offer, onHover, onLeave }) => {
-	const { title, type, rating, isFavorite, isPremium, price, image } = offer
+export const CardPlace = ({ id, hotel, onHover, onLeave }) => {
+	const {
+		title,
+		type,
+		rating,
+		is_favorite: isFavorite,
+		is_premium: isPremium,
+		price,
+		preview_image: image,
+	} = hotel
 	return (
 		<article
 			className='cities__place-card place-card'
@@ -68,8 +76,8 @@ export const CardPlace = ({ id, offer, onHover, onLeave }) => {
 }
 
 CardPlace.propTypes = {
-	id: pt.string,
-	offer: pt.offer,
+	id: pt.number,
+	hotel: pt.hotel,
 	onHover: pt.fn,
 	onLeave: pt.fn,
 }

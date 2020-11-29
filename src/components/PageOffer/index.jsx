@@ -7,24 +7,24 @@ import { Header } from 'components/Header'
 import { ListReviews } from 'components/ListReviews'
 import { Map } from 'components/Map'
 
-export const PageOffer = ({ offer }) => {
+export const PageOffer = ({ hotel }) => {
 	const {
 		id,
-		gallery,
-		isPremium,
+		images,
+		is_premium: isPremium,
+		is_favorite: isFavorite,
 		title,
-		isFavorite,
 		rating,
 		type,
 		bedrooms,
-		adults,
+		max_adults: maxAdults,
 		price,
-		inside,
-		user,
+		goods,
+		host: user,
 		description,
 		reviews,
 		other,
-	} = offer
+	} = hotel
 
 	return (
 		<div className='page'>
@@ -34,7 +34,7 @@ export const PageOffer = ({ offer }) => {
 				<section className='property'>
 					<div className='property__gallery-container container'>
 						<div className='property__gallery'>
-							{gallery.map((item, itemId) => {
+							{images.map((item, itemId) => {
 								return (
 									<div className='property__image-wrapper' key={itemId}>
 										<img
@@ -93,7 +93,7 @@ export const PageOffer = ({ offer }) => {
 									{bedrooms} Bedrooms
 								</li>
 								<li className='property__feature property__feature--adults'>
-									Max {adults} adults
+									Max {maxAdults} adults
 								</li>
 							</ul>
 							<div className='property__price'>
@@ -103,7 +103,7 @@ export const PageOffer = ({ offer }) => {
 							<div className='property__inside'>
 								<h2 className='property__inside-title'>What&apos;s inside</h2>
 								<ul className='property__inside-list'>
-									{inside.map((item) => {
+									{goods.map((item) => {
 										return (
 											<li className='property__inside-item' key={item}>
 												{item}
@@ -170,5 +170,5 @@ export const PageOffer = ({ offer }) => {
 }
 
 PageOffer.propTypes = {
-	offer: pt.offer,
+	hotel: pt.hotel,
 }

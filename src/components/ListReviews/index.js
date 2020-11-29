@@ -52,6 +52,6 @@ export const ListReviews = ({ reviews = [], onSubmitReview }) => {
 }
 
 ListReviews.propTypes = {
-	reviews: pt.reviews,
+	reviews: pt.comments,
 	onSubmitReview: pt.fn,
 }
