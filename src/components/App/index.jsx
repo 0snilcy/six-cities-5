@@ -1,7 +1,7 @@
 import React from 'react'
 import * as pt from 'types'
 import { PageMain } from '../PageMain'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { PageLogin } from 'components/PageLogin'
 import { PageFavorite } from 'components/PageFavorite'
 import { PageOffer } from 'components/PageOffer'
@@ -13,18 +13,19 @@ export const App = ({ offers, favorites }) => {
 				<Route exact path='/'>
 					<PageMain offers={offers} />
 				</Route>
-
 				<Route exact path='/login' component={PageLogin} />
-
 				<Route exact path='/favorites'>
 					<PageFavorite favoriteLocations={favorites} />
 				</Route>
-
 				<Route exact path='/offer/:id'>
-					{({ match }) => <PageOffer offer={offers[match.params.id]} />}
+					{({ match }) => {
+						const offer = offers.find(({ id }) => match.params.id === id)
+						if (!offer) return <Redirect to='/404' />
+						return <PageOffer offer={offer} />
+					}}
 				</Route>
-
 				<Route path='*'>404</Route>
+				<Route path='/404'>404</Route>
 			</Switch>
 		</BrowserRouter>
 	)

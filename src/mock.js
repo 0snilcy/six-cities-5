@@ -8,6 +8,7 @@ const review = {
 }
 
 const offer = {
+	id: 1,
 	rating: 5,
 	price: 180,
 	isFavorite: true,
@@ -49,6 +50,7 @@ const offer = {
 	reviews: [review, review],
 	other: [
 		{
+			id: Math.random().toString(),
 			rating: 5,
 			price: 180,
 			isFavorite: true,
@@ -59,6 +61,7 @@ const offer = {
 			smallImage: `img/apartment-small-03.jpg`,
 		},
 		{
+			id: Math.random().toString(),
 			rating: 5,
 			price: 180,
 			isFavorite: true,
@@ -69,6 +72,7 @@ const offer = {
 			smallImage: `img/apartment-small-03.jpg`,
 		},
 		{
+			id: Math.random().toString(),
 			rating: 5,
 			price: 180,
 			isFavorite: true,
@@ -85,18 +89,24 @@ const offersArr = [
 	{
 		...offer,
 		rating: 3,
-		price: 180,
+		price: 5180,
 		isFavorite: false,
 		isPremium: true,
 		type: `Apartment`,
-		title: `Nice, cozy, warm big bed apartment`,
-		image: `img/apartment-03.jpg`,
+		title: `The building is green and from 18th century`,
+		image: `img/apartment-02.jpg`,
 		smallImage: `img/apartment-small-03.jpg`,
 	},
 	offer,
 ]
 
-export const offers = new Array(6).fill(1).map((_, id) => offersArr[id % 2])
+export const offers = new Array(6).fill(1).map((_, id) => {
+	const item = {
+		...offersArr[id % 2],
+	}
+	item.id = Math.random().toString().split('.')[1]
+	return item
+})
 
 export const favorites = [
 	{

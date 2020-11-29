@@ -1,18 +1,24 @@
 import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
+import { Link } from 'react-router-dom'
+import { Route } from 'constants'
 
-export const CardPlace = ({ offer }) => {
+export const CardPlace = ({ id, offer, onHover, onLeave }) => {
 	const { title, type, rating, isFavorite, isPremium, price, image } = offer
 	return (
-		<article className='cities__place-card place-card'>
+		<article
+			className='cities__place-card place-card'
+			onMouseEnter={onHover}
+			onMouseLeave={onLeave}
+		>
 			{isPremium && (
 				<div className='place-card__mark'>
 					<span>Premium</span>
 				</div>
 			)}
 			<div className='cities__image-wrapper place-card__image-wrapper'>
-				<a href='#'>
+				<Link to={`${Route.OFFER}/${id}`}>
 					<img
 						className='place-card__image'
 						src={image}
@@ -20,7 +26,7 @@ export const CardPlace = ({ offer }) => {
 						height='200'
 						alt='Place image'
 					/>
-				</a>
+				</Link>
 			</div>
 			<div className='place-card__info'>
 				<div className='place-card__price-wrapper'>
@@ -53,7 +59,7 @@ export const CardPlace = ({ offer }) => {
 					</div>
 				</div>
 				<h2 className='place-card__name'>
-					<a href='#'>{title}</a>
+					<Link to={`${Route.OFFER}/${id}`}>{title} </Link>
 				</h2>
 				<p className='place-card__type'>{type}</p>
 			</div>
@@ -62,5 +68,8 @@ export const CardPlace = ({ offer }) => {
 }
 
 CardPlace.propTypes = {
+	id: pt.string,
 	offer: pt.offer,
+	onHover: pt.fn,
+	onLeave: pt.fn,
 }

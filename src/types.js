@@ -1,3 +1,4 @@
+import { CardListType } from 'constants'
 import pt from 'prop-types'
 
 export const offer = pt.shape({
@@ -21,6 +22,12 @@ const favoriteLocation = pt.shape({
 export const favoriteLocations = pt.arrayOf(favoriteLocation)
 
 export const offerPage = pt.shape({
-	id: pt.number.isRequired,
+	id: pt.string.isRequired,
 	offer,
 }).isRequired
+
+export const fn = pt.func.isRequired
+export const number = pt.number.isRequired
+export const string = pt.string.isRequired
+
+export const listTypes = pt.oneOf(Object.values(CardListType))

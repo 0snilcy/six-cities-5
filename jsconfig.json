@@ -1,15 +1,14 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "target": "es2020",
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "paths": {
-      "~/*": ["./components/*/index"]
-    }, 
-    "checkJs": true,
-    "moduleResolution": "node"
-  },
+	"compilerOptions": {
+		"jsx": "react",
+		"target": "es2020",
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./src",
+		"paths": {
+			"~/*": ["./components/*/index"]
+		},
+		"moduleResolution": "node"
+	},
 
-  "exclude": ["node_modules"]
+	"exclude": ["node_modules"]
 }
