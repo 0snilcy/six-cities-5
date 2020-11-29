@@ -17,6 +17,7 @@ const offer = {
 	title: `Nice, cozy, warm big bed apartment`,
 	image: `img/apartment-03.jpg`,
 	smallImage: `img/apartment-small-03.jpg`,
+	coords: [52.3909553943508, 4.85309666406198],
 
 	gallery: [
 		'img/room.jpg',
@@ -59,6 +60,7 @@ const offer = {
 			title: `Nice, cozy, warm big bed apartment`,
 			image: `img/apartment-03.jpg`,
 			smallImage: `img/apartment-small-03.jpg`,
+			coords: [52.369553943508, 4.85309666406198],
 		},
 		{
 			id: Math.random().toString(),
@@ -70,6 +72,7 @@ const offer = {
 			title: `Nice, cozy, warm big bed apartment`,
 			image: `img/apartment-03.jpg`,
 			smallImage: `img/apartment-small-03.jpg`,
+			coords: [52.3909553943508, 4.929309666406198],
 		},
 		{
 			id: Math.random().toString(),
@@ -81,6 +84,7 @@ const offer = {
 			title: `Nice, cozy, warm big bed apartment`,
 			image: `img/apartment-03.jpg`,
 			smallImage: `img/apartment-small-03.jpg`,
+			coords: [52.369553943508, 4.85309666406198],
 		},
 	],
 }
@@ -96,6 +100,7 @@ const offersArr = [
 		title: `The building is green and from 18th century`,
 		image: `img/apartment-02.jpg`,
 		smallImage: `img/apartment-small-03.jpg`,
+		coords: [52.3809553943508, 4.939309666406198],
 	},
 	offer,
 ]

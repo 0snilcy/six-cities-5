@@ -31,3 +31,10 @@ export const number = pt.number.isRequired
 export const string = pt.string.isRequired
 
 export const listTypes = pt.oneOf(Object.values(CardListType))
+
+const mapPoint = pt.shape({
+	lat: pt.number.isRequired,
+	lng: pt.number.isRequired,
+})
+
+export const mapPoints = pt.arrayOf(mapPoint)

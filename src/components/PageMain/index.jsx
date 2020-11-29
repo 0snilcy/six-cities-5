@@ -1,4 +1,5 @@
 import { Header } from 'components/Header'
+import { Map } from 'components/Map'
 import React from 'react'
 import * as pt from 'types'
 import { ListPlaces } from '../ListPlaces'
@@ -81,7 +82,14 @@ export const PageMain = ({ offers }) => {
 							<ListPlaces offers={offers} />
 						</section>
 						<div className='cities__right-section'>
-							<section className='cities__map map'></section>
+							<section className='cities__map map'>
+								<Map
+									points={offers.map((offer) => ({
+										lat: offer.coords[0],
+										lng: offer.coords[1],
+									}))}
+								/>
+							</section>
 						</div>
 					</div>
 				</div>
