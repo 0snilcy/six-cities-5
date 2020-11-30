@@ -1,14 +1,14 @@
 import { CardListType } from 'constants'
-import React from 'react'
+import React, { memo } from 'react'
 import * as pt from 'types'
 import { CardPlace } from '../CardPlace'
 import cl from 'classnames'
 
-export const ListPlaces = ({
+export const ListPlaces = memo(function ListPlaces({
 	hotels,
 	type = CardListType.MAIN,
 	onCardHover,
-}) => {
+}) {
 	return (
 		<div
 			className={cl('places__list', 'cities__places-list tabs__content', {
@@ -26,7 +26,7 @@ export const ListPlaces = ({
 			))}
 		</div>
 	)
-}
+})
 
 ListPlaces.propTypes = {
 	hotels: pt.hotels,

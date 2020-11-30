@@ -2,39 +2,25 @@ import { Header } from 'components/Header'
 import { Map } from 'components/Map'
 import { Sort } from 'components/Sort'
 import { Tabs } from 'components/Tabs'
-import React, { useState } from 'react'
+import React from 'react'
 import * as pt from 'types'
 import { ListPlaces } from '../ListPlaces'
-import { SortOption } from 'constants'
+import usePageMainState from './state'
 
 export const PageMain = ({ hotels }) => {
-	const cities = [...new Set(hotels.map(({ city }) => city.name))]
+	const {
+		cities,
+		activeHotels,
 
-	const [activeCity, setActiveCity] = useState(cities[0])
-	const [activeSort, setActiveSort] = useState(SortOption.POPULAR)
-	const [activeCardId, setActiveCardId] = useState()
+		activeCardId,
+		setActiveCardId,
 
-	const filtredHotels = hotels.filter((hotel) => hotel.city.name === activeCity)
+		activeCity,
+		setActiveCity,
 
-	const activeHotels = (() => {
-		const copy = [...filtredHotels]
-
-		switch (activeSort) {
-			case SortOption.POPULAR:
-				return copy
-
-			case SortOption.LOW:
-				return copy.sort((a, b) => a.price - b.price)
-
-			case SortOption.HIGH:
-				return copy.sort((a, b) => b.price - a.price)
-
-			case SortOption.RATING:
-				return copy.sort((a, b) => b.rating - a.rating)
-		}
-
-		return copy
-	})()
+		activeSort,
+		setActiveSort,
+	} = usePageMainState(hotels)
 
 	return (
 		<div className='page page--gray page--main'>
@@ -46,9 +32,7 @@ export const PageMain = ({ hotels }) => {
 				<Tabs
 					cities={cities}
 					activeCity={activeCity}
-					onChange={(city) => {
-						setActiveCity(city)
-					}}
+					onChange={setActiveCity}
 				/>
 
 				<div className='cities'>
@@ -60,7 +44,6 @@ export const PageMain = ({ hotels }) => {
 							</b>
 
 							<Sort onChange={setActiveSort} activeSort={activeSort} />
-
 							<ListPlaces hotels={activeHotels} onCardHover={setActiveCardId} />
 						</section>
 						<div className='cities__right-section'>

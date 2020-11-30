@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import cl from 'classnames'
 import * as pt from 'types'
 
-export const Tabs = ({ onChange, cities, activeCity }) => {
+export const Tabs = memo(function Tabs({ onChange, cities, activeCity }) {
 	return (
 		<div className='tabs'>
 			<section className='locations container'>
@@ -27,7 +27,7 @@ export const Tabs = ({ onChange, cities, activeCity }) => {
 			</section>
 		</div>
 	)
-}
+})
 
 Tabs.propTypes = {
 	cities: pt.stringArr,

@@ -1,19 +1,16 @@
-import React, { useState } from 'react'
+import React, { memo } from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { SortOption } from 'constants'
+import { useToggle } from 'hooks/common'
 
-export const Sort = ({ onChange = () => {}, activeSort }) => {
-	const [isOpen, setIsOpen] = useState(false)
+export const Sort = memo(function Sort({ onChange = () => {}, activeSort }) {
+	const [isOpen, toggleOpen, setIsOpen] = useToggle(false)
 
 	return (
 		<form className='places__sorting' action='#' method='get'>
 			<span className='places__sorting-caption'>Sort by</span>
-			<span
-				className='places__sorting-type'
-				tabIndex={0}
-				onClick={() => setIsOpen(!isOpen)}
-			>
+			<span className='places__sorting-type' tabIndex={0} onClick={toggleOpen}>
 				Popular
 				<svg className='places__sorting-arrow' width='7' height='4'>
 					<use xlinkHref='#icon-arrow-select'></use>
@@ -42,7 +39,7 @@ export const Sort = ({ onChange = () => {}, activeSort }) => {
 			</ul>
 		</form>
 	)
-}
+})
 
 Sort.propTypes = {
 	onChange: pt.fn,

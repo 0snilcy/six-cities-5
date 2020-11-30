@@ -1,8 +1,8 @@
 import { Route } from 'constants'
-import React from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
 
-export const Header = ({}) => {
+export const Header = memo(function Header() {
 	return (
 		<header className='header'>
 			<div className='container'>
@@ -41,6 +41,6 @@ export const Header = ({}) => {
 			</div>
 		</header>
 	)
-}
+})
 
 Header.propTypes = {}

@@ -140,12 +140,7 @@ export const PageOffer = ({ hotel }) => {
 								</div>
 							</div>
 
-							<ListReviews
-								reviews={reviews}
-								onSubmitReview={(data) => {
-									console.log(data, id)
-								}}
-							/>
+							<ListReviews reviews={reviews} onSubmitReview={() => {}} />
 						</div>
 					</div>
 					<section className='property__map map'>

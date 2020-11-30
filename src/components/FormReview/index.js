@@ -1,21 +1,16 @@
 import { RATING_VALUE } from 'constants'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import * as pt from 'types'
+import useFormReviewState from './state'
 
 export const FormReview = ({ onSubmit }) => {
-	const [text, setText] = useState('')
-	const [rating, setRating] = useState()
-	const [disabled, setDisabled] = useState(!(text.length > 50 && rating))
-
-	const updateRating = ({ target }) => {
-		setRating(target.value)
-		setDisabled(!(text.length > 50 && target.value))
-	}
-
-	const updateText = ({ target }) => {
-		setText(target.value)
-		setDisabled(!(target.value.length > 50 && rating))
-	}
+	const {
+		text,
+		rating,
+		disabled,
+		updateRating,
+		updateText,
+	} = useFormReviewState()
 
 	return (
 		<form
@@ -34,7 +29,7 @@ export const FormReview = ({ onSubmit }) => {
 				Your review
 			</label>
 			<div className='reviews__rating-form form__rating'>
-				{new Array(RATING_VALUE).fill(1).map((_, id) => (
+				{new Array(RATING_VALUE).fill().map((_, id) => (
 					<Fragment key={id}>
 						<input
 							className='form__rating-input visually-hidden'
