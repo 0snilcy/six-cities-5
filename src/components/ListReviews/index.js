@@ -1,6 +1,7 @@
 import React from 'react'
 import * as pt from 'types'
 import { FormReview } from 'components/FormReview'
+import { RATING_VALUE } from 'constants'
 
 export const ListReviews = ({ reviews = [], onSubmitReview }) => {
 	return (
@@ -30,7 +31,7 @@ export const ListReviews = ({ reviews = [], onSubmitReview }) => {
 									<div className='reviews__stars rating__stars'>
 										<span
 											style={{
-												width: `${review.rating * (100 / 5)}%`,
+												width: `${review.rating * (100 / RATING_VALUE)}%`,
 											}}
 										></span>
 										<span className='visually-hidden'>Rating</span>

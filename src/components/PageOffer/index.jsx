@@ -6,6 +6,7 @@ import { CardListType } from 'constants'
 import { Header } from 'components/Header'
 import { ListReviews } from 'components/ListReviews'
 import { Map } from 'components/Map'
+import { RATING_VALUE } from 'constants'
 
 export const PageOffer = ({ hotel }) => {
 	const {
@@ -22,8 +23,8 @@ export const PageOffer = ({ hotel }) => {
 		goods,
 		host: user,
 		description,
-		reviews,
-		other,
+		reviews = [],
+		other = [],
 	} = hotel
 
 	return (
@@ -76,13 +77,13 @@ export const PageOffer = ({ hotel }) => {
 								<div className='property__stars rating__stars'>
 									<span
 										style={{
-											width: `${rating * (100 / 5)}%`,
+											width: `${rating * (100 / RATING_VALUE)}%`,
 										}}
 									></span>
 									<span className='visually-hidden'>Rating</span>
 								</div>
 								<span className='property__rating-value rating__value'>
-									4.8
+									{rating}
 								</span>
 							</div>
 							<ul className='property__features'>
@@ -126,7 +127,7 @@ export const PageOffer = ({ hotel }) => {
 									>
 										<img
 											className='property__avatar user__avatar'
-											src={user.avatar}
+											src={user.avatar_url}
 											width='74'
 											height='74'
 											alt='Host avatar'
@@ -148,12 +149,15 @@ export const PageOffer = ({ hotel }) => {
 						</div>
 					</div>
 					<section className='property__map map'>
-						<Map
-							points={other.map((otherOffer) => ({
-								lat: otherOffer.coords[0],
-								lng: otherOffer.coords[1],
-							}))}
-						/>
+						{other.length && (
+							<Map
+								city={other[0].city}
+								points={other.map((otherOffer) => ({
+									lat: otherOffer.coords[0],
+									lng: otherOffer.coords[1],
+								}))}
+							/>
+						)}
 					</section>
 				</section>
 				<div className='container'>
@@ -161,7 +165,9 @@ export const PageOffer = ({ hotel }) => {
 						<h2 className='near-places__title'>
 							Other places in the neighbourhood
 						</h2>
-						<ListPlaces offers={other} type={CardListType.ROW} />
+						{other.length && (
+							<ListPlaces offers={other} type={CardListType.ROW} />
+						)}
 					</section>
 				</div>
 			</main>

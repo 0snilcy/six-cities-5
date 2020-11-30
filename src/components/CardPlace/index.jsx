@@ -2,10 +2,11 @@ import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { Link } from 'react-router-dom'
-import { Route } from 'constants'
+import { Route, RATING_VALUE } from 'constants'
 
-export const CardPlace = ({ id, hotel, onHover, onLeave }) => {
+export const CardPlace = ({ hotel, onHover, onLeave }) => {
 	const {
+		id,
 		title,
 		type,
 		rating,
@@ -60,7 +61,7 @@ export const CardPlace = ({ id, hotel, onHover, onLeave }) => {
 					<div className='place-card__stars rating__stars'>
 						<span
 							style={{
-								width: `${rating * (100 / 5)}%`,
+								width: `${rating * (100 / RATING_VALUE)}%`,
 							}}
 						></span>
 						<span className='visually-hidden'>Rating</span>
@@ -76,7 +77,6 @@ export const CardPlace = ({ id, hotel, onHover, onLeave }) => {
 }
 
 CardPlace.propTypes = {
-	id: pt.number,
 	hotel: pt.hotel,
 	onHover: pt.fn,
 	onLeave: pt.fn,

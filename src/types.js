@@ -3,6 +3,7 @@ import pt from 'prop-types'
 
 export const fn = pt.func.isRequired
 export const number = pt.number.isRequired
+export const _number = pt.number
 export const string = pt.string.isRequired
 export const _string = pt.string
 export const bool = pt.bool.isRequired
@@ -14,7 +15,12 @@ export const location = pt.shape({
 	zoom: number,
 }).isRequired
 
-export const locations = pt.arrayOf(location).isRequired
+export const locations = pt.arrayOf(
+	pt.shape({
+		location,
+		id: pt.number,
+	})
+).isRequired
 
 const user = pt.shape({
 	avatar_url: string,

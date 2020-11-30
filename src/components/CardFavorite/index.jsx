@@ -1,6 +1,7 @@
 import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
+import { RATING_VALUE } from 'constants'
 
 export const CardFavorite = ({ hotel }) => {
 	const {
@@ -48,7 +49,7 @@ export const CardFavorite = ({ hotel }) => {
 					<div className='place-card__stars rating__stars'>
 						<span
 							style={{
-								width: `${rating * (100 / 5)}%`,
+								width: `${rating * (100 / RATING_VALUE)}%`,
 							}}
 						></span>
 						<span className='visually-hidden'>Rating</span>

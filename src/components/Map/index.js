@@ -3,16 +3,20 @@ import leaflet from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import * as pt from 'types'
 
-const icon = leaflet.icon({
-	iconUrl: `img/pin.svg`,
-	iconSize: [30, 30],
-})
-
 export const Map = ({ locations = [], city }) => {
+	if (!locations.length) return 'Empty'
+
 	const [map, setMap] = useState()
 	const renderPins = (ctx, pins) =>
-		pins.forEach(({ latitude, longitude }) =>
-			leaflet.marker([latitude, longitude], { icon }).addTo(ctx)
+		pins.forEach(({ location: { latitude, longitude }, active }) =>
+			leaflet
+				.marker([latitude, longitude], {
+					icon: leaflet.icon({
+						iconUrl: `img/pin${active ? '-active' : ''}.svg`,
+						iconSize: [30, 30],
+					}),
+				})
+				.addTo(ctx)
 		)
 
 	useEffect(() => {

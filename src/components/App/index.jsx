@@ -19,9 +19,9 @@ export const App = ({ hotels }) => {
 				</Route>
 				<Route exact path='/offer/:id'>
 					{({ match }) => {
-						const hotel = hotels.find(({ id }) => match.params.id === id)
+						const hotel = hotels.find(({ id }) => +match.params.id === id)
 						if (!hotel) return <Redirect to='/404' />
-						return <PageOffer offer={hotel} />
+						return <PageOffer hotel={hotel} />
 					}}
 				</Route>
 				<Route path='*'>404</Route>
