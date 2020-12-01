@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { ListPlaces } from 'components/ListPlaces'
@@ -7,6 +7,7 @@ import { Header } from 'components/Header'
 import { ListReviews } from 'components/ListReviews'
 import { Map } from 'components/Map'
 import { RATING_VALUE } from 'const'
+import { useComments, useHotels, useNearby } from 'store/points/data/hooks'
 
 export const PageOffer = ({ hotel }) => {
 	const {
@@ -23,9 +24,16 @@ export const PageOffer = ({ hotel }) => {
 		goods,
 		host: user,
 		description,
-		reviews = [],
-		other = [],
 	} = hotel
+
+	const [activeNearby, setActiveNearby] = useState()
+	const { clearActiveHotel } = useHotels()
+	const { comments, sendComment } = useComments(id)
+	const { nearby } = useNearby(id)
+
+	useEffect(() => {
+		return () => clearActiveHotel()
+	}, [id])
 
 	return (
 		<div className='page'>
@@ -140,31 +148,38 @@ export const PageOffer = ({ hotel }) => {
 								</div>
 							</div>
 
-							<ListReviews reviews={reviews} onSubmitReview={() => {}} />
+							<ListReviews
+								reviews={comments}
+								onSubmitReview={(data) => sendComment(data.text, data.rating)}
+							/>
 						</div>
 					</div>
-					<section className='property__map map'>
-						{other.length && (
+					{!!nearby.length && (
+						<section className='property__map map'>
 							<Map
-								city={other[0].city}
-								points={other.map((otherOffer) => ({
-									lat: otherOffer.coords[0],
-									lng: otherOffer.coords[1],
+								city={nearby[0].city.location}
+								locations={nearby.map(({ location, id: nearbyId }) => ({
+									location,
+									active: activeNearby === nearbyId,
 								}))}
 							/>
-						)}
-					</section>
+						</section>
+					)}
 				</section>
-				<div className='container'>
-					<section className='near-places places'>
-						<h2 className='near-places__title'>
-							Other places in the neighbourhood
-						</h2>
-						{other.length && (
-							<ListPlaces offers={other} type={CardListType.ROW} />
-						)}
-					</section>
-				</div>
+				{!!nearby.length && (
+					<div className='container'>
+						<section className='near-places places'>
+							<h2 className='near-places__title'>
+								Other places in the neighbourhood
+							</h2>
+							<ListPlaces
+								hotels={nearby}
+								type={CardListType.ROW}
+								onCardHover={setActiveNearby}
+							/>
+						</section>
+					</div>
+				)}
 			</main>
 		</div>
 	)

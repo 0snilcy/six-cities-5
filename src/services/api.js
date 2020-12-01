@@ -20,7 +20,6 @@ export class API {
 	}
 
 	onSuccess(response) {
-		console.log('response', response)
 		return response
 	}
 
@@ -32,7 +31,6 @@ export class API {
 			throw err
 		}
 
-		console.log('err', err)
 		throw err
 	}
 }

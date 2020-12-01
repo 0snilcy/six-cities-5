@@ -5,10 +5,12 @@ export { USER_NAMESPACE } from './store'
 export const reducer = (state = userStoreInitial, action) => {
 	switch (action.type) {
 		case UserActionType.USER_CHANGE:
-			return {
-				...state,
-				...action.payload,
-			}
+			return action.payload
+				? {
+						...state,
+						...action.payload,
+				  }
+				: null
 		default:
 			return state
 	}

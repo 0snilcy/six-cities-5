@@ -3,6 +3,9 @@ export const RATING_VALUE = 5
 export const APIRoute = {
 	HOTELS: '/hotels',
 	LOGIN: '/login',
+	COMMENTS: '/comments',
+	NEARBY: '/nearby',
+	FAVORITE: '/favorite',
 }
 
 export const Route = {

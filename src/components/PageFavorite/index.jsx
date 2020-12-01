@@ -1,46 +1,61 @@
 import React from 'react'
-import * as pt from 'types'
 import { CardFavorite } from 'components/CardFavorite'
 import { Header } from 'components/Header'
+import { useFavoriteList } from 'store/points/data/hooks'
 
-export const PageFavorite = ({ hotels }) => {
+export const PageFavorite = () => {
+	const { favoriteHotels } = useFavoriteList()
+
 	return (
 		<div className='page'>
 			<Header />
 
 			<main className='page__main page__main--favorites'>
 				<div className='page__favorites-container container'>
-					<section className='favorites'>
-						<h1 className='favorites__title'>Saved listing</h1>
-						<ul className='favorites__list'>
-							{Object.entries(
-								hotels.reduce((result, hotel) => {
-									const city = hotel.city.name
-									const cityHotels = result[city]
+					{favoriteHotels.length ? (
+						<section className='favorites'>
+							<h1 className='favorites__title'>Saved listing</h1>
+							<ul className='favorites__list'>
+								{Object.entries(
+									favoriteHotels.reduce((result, hotel) => {
+										const city = hotel.city.name
+										const cityHotels = result[city]
 
-									result[city] = cityHotels ? [...cityHotels, hotel] : [hotel]
-									return result
-								}, {})
-							).map(([city, cityHotels]) => {
-								return (
-									<li className='favorites__locations-items' key={city}>
-										<div className='favorites__locations locations locations--current'>
-											<div className='locations__item'>
-												<a className='locations__item-link' href='#'>
-													<span>{city}</span>
-												</a>
+										result[city] = cityHotels ? [...cityHotels, hotel] : [hotel]
+										return result
+									}, {})
+								).map(([city, cityHotels]) => {
+									return (
+										<li className='favorites__locations-items' key={city}>
+											<div className='favorites__locations locations locations--current'>
+												<div className='locations__item'>
+													<a className='locations__item-link' href='#'>
+														<span>{city}</span>
+													</a>
+												</div>
 											</div>
-										</div>
-										<div className='favorites__places'>
-											{cityHotels.map((hotel) => (
-												<CardFavorite hotel={hotel} key={hotel.id} />
-											))}
-										</div>
-									</li>
-								)
-							})}
-						</ul>
-					</section>
+											<div className='favorites__places'>
+												{cityHotels.map((hotel) => (
+													<CardFavorite hotel={hotel} key={hotel.id} />
+												))}
+											</div>
+										</li>
+									)
+								})}
+							</ul>
+						</section>
+					) : (
+						<section className='favorites favorites--empty'>
+							<h1 className='visually-hidden'>Favorites (empty)</h1>
+							<div className='favorites__status-wrapper'>
+								<b className='favorites__status'>Nothing yet saved.</b>
+								<p className='favorites__status-description'>
+									Save properties to narrow down search or plan yor future
+									trips.
+								</p>
+							</div>
+						</section>
+					)}
 				</div>
 			</main>
 
@@ -59,6 +74,4 @@ export const PageFavorite = ({ hotels }) => {
 	)
 }
 
-PageFavorite.propTypes = {
-	hotels: pt.hotels,
-}
+PageFavorite.propTypes = {}

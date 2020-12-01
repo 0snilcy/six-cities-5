@@ -3,8 +3,6 @@ import * as pt from 'types'
 import useMap from './state'
 
 export const Map = memo(function Map({ locations = [], city }) {
-	if (!locations.length) return null
-
 	const mapRef = useRef()
 	useMap(mapRef, locations, city)
 

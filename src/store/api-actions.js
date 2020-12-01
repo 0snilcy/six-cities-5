@@ -10,11 +10,46 @@ export const APIAction = {
 		})
 	},
 
+	getComments: (id) => (dispatch, _, api) => {
+		api.http.get(`${APIRoute.COMMENTS}/${id}`).then(({ data }) => {
+			dispatch(DataActionCreator.changeHotelComments(data))
+		})
+	},
+
+	sendComment: (id, data) => (dispatch, _, api) => {
+		api.http
+			.post(`${APIRoute.COMMENTS}/${id}`, data)
+			.then(({ data: updatedComments }) => {
+				dispatch(DataActionCreator.changeHotelComments(updatedComments))
+			})
+	},
+
+	getNearby: (id) => (dispatch, _, api) => {
+		api.http
+			.get(`${APIRoute.HOTELS}/${id}${APIRoute.NEARBY}`)
+			.then(({ data: nearbyHotels }) => {
+				dispatch(DataActionCreator.changeNearbyHotels(nearbyHotels))
+			})
+	},
+
+	setFavorite: (id, status) => (dispatch, _, api) => {
+		api.http
+			.post(`${APIRoute.FAVORITE}/${id}/${+status}`)
+			.then(({ data: favoriteHotel }) => {
+				dispatch(DataActionCreator.changeFavoriteHotel(favoriteHotel))
+			})
+	},
+
+	getFavorite: () => (dispatch, _, api) => {
+		api.http.get(`${APIRoute.FAVORITE}`).then(({ data: favoriteHotels }) => {
+			dispatch(DataActionCreator.changeFavoriteList(favoriteHotels))
+		})
+	},
+
 	checkAuth: () => (dispatch, _, api) =>
 		api.http
 			.get(APIRoute.LOGIN)
-			.then(({ data }) => dispatch(UserActionCreator.set(data)))
-			.catch(() => console.log('Not auth')),
+			.then(({ data }) => dispatch(UserActionCreator.set(data))),
 
 	login: (login) => (dispatch, _, api) =>
 		api.http.post(APIRoute.LOGIN, login).then(({ data }) => {

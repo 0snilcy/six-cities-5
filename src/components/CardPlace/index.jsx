@@ -3,6 +3,7 @@ import * as pt from 'types'
 import cl from 'classnames'
 import { Link } from 'react-router-dom'
 import { Route, RATING_VALUE } from 'const'
+import { useFavoriteStatus } from 'store/points/data/hooks'
 
 export const CardPlace = ({ hotel, onHover, onLeave }) => {
 	const {
@@ -15,6 +16,9 @@ export const CardPlace = ({ hotel, onHover, onLeave }) => {
 		price,
 		preview_image: image,
 	} = hotel
+
+	const { setFavorite } = useFavoriteStatus()
+
 	return (
 		<article
 			className='cities__place-card place-card'
@@ -48,6 +52,7 @@ export const CardPlace = ({ hotel, onHover, onLeave }) => {
 							'place-card__bookmark-button--active': isFavorite,
 						})}
 						type='button'
+						onClick={() => setFavorite(id, !isFavorite)}
 					>
 						<svg className='place-card__bookmark-icon' width='18' height='19'>
 							<use xlinkHref='#icon-bookmark'></use>
