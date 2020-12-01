@@ -1,7 +1,7 @@
 import React from 'react'
 import * as pt from 'types'
 import { FormReview } from 'components/FormReview'
-import { RATING_VALUE } from 'constants'
+import { RATING_VALUE } from 'const'
 
 export const ListReviews = ({ reviews = [], onSubmitReview }) => {
 	return (

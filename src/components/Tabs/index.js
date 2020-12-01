@@ -1,8 +1,10 @@
 import React, { memo } from 'react'
 import cl from 'classnames'
-import * as pt from 'types'
+import { useCity } from 'store/points/data/hooks'
 
-export const Tabs = memo(function Tabs({ onChange, cities, activeCity }) {
+export const Tabs = memo(function Tabs({}) {
+	const { activeCity, cities, setActiveCity } = useCity()
+
 	return (
 		<div className='tabs'>
 			<section className='locations container'>
@@ -16,7 +18,7 @@ export const Tabs = memo(function Tabs({ onChange, cities, activeCity }) {
 								href='#'
 								onClick={(evt) => {
 									evt.preventDefault()
-									onChange(city)
+									setActiveCity(city)
 								}}
 							>
 								<span>{city}</span>
@@ -29,8 +31,4 @@ export const Tabs = memo(function Tabs({ onChange, cities, activeCity }) {
 	)
 })
 
-Tabs.propTypes = {
-	cities: pt.stringArr,
-	onChange: pt.fn,
-	activeCity: pt.string,
-}
+Tabs.propTypes = {}

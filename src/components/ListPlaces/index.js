@@ -1,4 +1,4 @@
-import { CardListType } from 'constants'
+import { CardListType } from 'const'
 import React, { memo } from 'react'
 import * as pt from 'types'
 import { CardPlace } from '../CardPlace'

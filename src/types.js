@@ -8,7 +8,8 @@ export const string = pt.string.isRequired
 export const _string = pt.string
 export const bool = pt.bool.isRequired
 export const stringArr = pt.arrayOf(string)
-export const component = pt.element
+export const component = pt.node
+export const any = pt.any.isRequired
 
 export const location = pt.shape({
 	latitude: number,

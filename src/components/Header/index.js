@@ -1,8 +1,11 @@
-import { Route } from 'constants'
+import { Route } from 'const'
 import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
+import { useUser } from 'store/points/user/hooks'
 
 export const Header = memo(function Header() {
+	const { user } = useUser()
+
 	return (
 		<header className='header'>
 			<div className='container'>
@@ -23,12 +26,19 @@ export const Header = memo(function Header() {
 							<li className='header__nav-item user'>
 								<Link
 									className='header__nav-link header__nav-link--profile'
-									to={Route.LOGIN}
+									to={user ? Route.FAVORITES : Route.LOGIN}
 								>
-									<div className='header__avatar-wrapper user__avatar-wrapper'></div>
-									{false ? (
+									<div className='header__avatar-wrapper user__avatar-wrapper'>
+										{user && user.avatar_url && (
+											<img
+												src={user.avatar_url}
+												style={{ borderRadius: '50%' }}
+											/>
+										)}
+									</div>
+									{user ? (
 										<span className='header__user-name user__name'>
-											Oliver.conner@gmail.com
+											{user.name}
 										</span>
 									) : (
 										<span className='header__login'>Sign in</span>

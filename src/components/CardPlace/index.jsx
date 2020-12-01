@@ -2,7 +2,7 @@ import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { Link } from 'react-router-dom'
-import { Route, RATING_VALUE } from 'constants'
+import { Route, RATING_VALUE } from 'const'
 
 export const CardPlace = ({ hotel, onHover, onLeave }) => {
 	const {

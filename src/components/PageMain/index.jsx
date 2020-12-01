@@ -3,24 +3,22 @@ import { Map } from 'components/Map'
 import { Sort } from 'components/Sort'
 import { Tabs } from 'components/Tabs'
 import React from 'react'
-import * as pt from 'types'
+import { useCity } from 'store/points/data/hooks'
 import { ListPlaces } from '../ListPlaces'
 import usePageMainState from './state'
 
-export const PageMain = ({ hotels }) => {
+export const PageMain = () => {
+	const { activeCity } = useCity()
+
 	const {
-		cities,
 		activeHotels,
 
 		activeCardId,
 		setActiveCardId,
 
-		activeCity,
-		setActiveCity,
-
 		activeSort,
 		setActiveSort,
-	} = usePageMainState(hotels)
+	} = usePageMainState()
 
 	return (
 		<div className='page page--gray page--main'>
@@ -29,18 +27,14 @@ export const PageMain = ({ hotels }) => {
 			<main className='page__main page__main--index'>
 				<h1 className='visually-hidden'>Cities</h1>
 
-				<Tabs
-					cities={cities}
-					activeCity={activeCity}
-					onChange={setActiveCity}
-				/>
+				<Tabs />
 
 				<div className='cities'>
 					<div className='cities__places-container container'>
 						<section className='cities__places places'>
 							<h2 className='visually-hidden'>Places</h2>
 							<b className='places__found'>
-								{activeHotels.length} places to stay in Amsterdam
+								{activeHotels.length} places to stay in {activeCity}
 							</b>
 
 							<Sort onChange={setActiveSort} activeSort={activeSort} />
@@ -66,6 +60,4 @@ export const PageMain = ({ hotels }) => {
 	)
 }
 
-PageMain.propTypes = {
-	hotels: pt.hotels,
-}
+PageMain.propTypes = {}

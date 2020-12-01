@@ -2,11 +2,11 @@ import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { ListPlaces } from 'components/ListPlaces'
-import { CardListType } from 'constants'
+import { CardListType } from 'const'
 import { Header } from 'components/Header'
 import { ListReviews } from 'components/ListReviews'
 import { Map } from 'components/Map'
-import { RATING_VALUE } from 'constants'
+import { RATING_VALUE } from 'const'
 
 export const PageOffer = ({ hotel }) => {
 	const {

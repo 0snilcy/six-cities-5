@@ -1,4 +1,4 @@
-import { RATING_VALUE } from 'constants'
+import { RATING_VALUE } from 'const'
 import React, { Fragment } from 'react'
 import * as pt from 'types'
 import useFormReviewState from './state'

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
-import { RATING_VALUE } from 'constants'
+import { RATING_VALUE } from 'const'
 
 export const CardFavorite = ({ hotel }) => {
 	const {

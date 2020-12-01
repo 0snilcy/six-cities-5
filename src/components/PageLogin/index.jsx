@@ -1,7 +1,9 @@
 import { Header } from 'components/Header'
 import React from 'react'
+import usePageLoginState from './state'
 
-export const PageLogin = ({}) => {
+export const PageLogin = () => {
+	const { email, setEmail, password, setPassword, login } = usePageLoginState()
 	return (
 		<div className='page page--gray page--login'>
 			<Header />
@@ -19,6 +21,8 @@ export const PageLogin = ({}) => {
 									name='email'
 									placeholder='Email'
 									required=''
+									value={email}
+									onChange={({ target }) => setEmail(target.value)}
 								/>
 							</div>
 							<div className='login__input-wrapper form__input-wrapper'>
@@ -29,11 +33,20 @@ export const PageLogin = ({}) => {
 									name='password'
 									placeholder='Password'
 									required=''
+									value={password}
+									onChange={({ target }) => setPassword(target.value)}
 								/>
 							</div>
 							<button
 								className='login__submit form__submit button'
 								type='submit'
+								onClick={(evt) => {
+									evt.preventDefault()
+									login({
+										email,
+										password,
+									})
+								}}
 							>
 								Sign in
 							</button>
@@ -51,5 +64,3 @@ export const PageLogin = ({}) => {
 		</div>
 	)
 }
-
-PageLogin.propTypes = {}

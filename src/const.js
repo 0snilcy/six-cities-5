@@ -1,9 +1,15 @@
 export const RATING_VALUE = 5
 
+export const APIRoute = {
+	HOTELS: '/hotels',
+	LOGIN: '/login',
+}
+
 export const Route = {
 	MAIN: '/',
 	OFFER: '/offer',
 	LOGIN: '/login',
+	FAVORITES: '/favorites',
 }
 
 export const CardListType = {
@@ -16,4 +22,9 @@ export const SortOption = {
 	LOW: 'Price: low to high',
 	HIGH: 'Price: high to low',
 	RATING: 'Top rated first',
+}
+
+export const AuthState = {
+	AUTH: 'AUTH',
+	NOT_AUTH: 'NO_AUTH',
 }

@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
-import { SortOption } from 'constants'
+import { SortOption } from 'const'
 import { useToggle } from 'hooks/common'
 
 export const Sort = memo(function Sort({ onChange = () => {}, activeSort }) {

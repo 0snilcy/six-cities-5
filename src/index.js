@@ -1,28 +1,31 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { App } from 'components/App'
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { reducer } from 'store/reducer'
-import { ActionCreator } from 'store/action'
+import reducer from 'store/reducer'
+import { API } from 'services/api'
+import thunk from 'redux-thunk'
+import { APIAction } from 'store/api-actions'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { UserActionCreator } from 'store/points/user/action'
 
-fetch('https://5.react.pages.academy/six-cities/hotels')
-	.then((response) => response.json())
-	.then((hotels) => {
-		const store = createStore(
-			reducer,
-			window.__REDUX_DEVTOOLS_EXTENSION__
-				? window.__REDUX_DEVTOOLS_EXTENSION__()
-				: (f) => f
-		)
+const api = new API(() => store.dispatch(UserActionCreator.clear()))
 
-		store.dispatch(ActionCreator.changeOffers(hotels))
+const store = createStore(
+	reducer,
+	composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+)
 
-		const app = (
-			<Provider store={store}>
-				<App hotels={hotels} />
-			</Provider>
-		)
+Promise.all([
+	store.dispatch(APIAction.getHotels()),
+	store.dispatch(APIAction.checkAuth()),
+]).then(() => {
+	const app = (
+		<Provider store={store}>
+			<App />
+		</Provider>
+	)
 
-		render(app, document.querySelector(`#root`))
-	})
+	render(app, document.querySelector(`#root`))
+})

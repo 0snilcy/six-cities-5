@@ -1,15 +1,19 @@
 import React from 'react'
-import * as pt from 'types'
 import { PageMain } from '../PageMain'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import { PageLogin } from 'components/PageLogin'
 import { PageFavorite } from 'components/PageFavorite'
 import { PageOffer } from 'components/PageOffer'
 import { PageMainEmpty } from 'components/PageMainEmpty'
+import { useHotels } from 'store/points/data/hooks'
+import { PrivateRoute } from 'components/PrivateRoute'
+import { browserHistory } from 'services/history'
 
-export const App = ({ hotels }) => {
+export const App = () => {
+	const { hotels } = useHotels()
+
 	return (
-		<BrowserRouter>
+		<Router history={browserHistory}>
 			<Switch>
 				<Route exact path='/'>
 					{hotels.length ? <PageMain hotels={hotels} /> : <PageMainEmpty />}
@@ -17,9 +21,9 @@ export const App = ({ hotels }) => {
 
 				<Route exact path='/login' component={PageLogin} />
 
-				<Route exact path='/favorites'>
+				<PrivateRoute exact path='/favorites'>
 					<PageFavorite hotels={hotels} />
-				</Route>
+				</PrivateRoute>
 
 				<Route exact path='/offer/:id'>
 					{({ match }) => {
@@ -31,10 +35,6 @@ export const App = ({ hotels }) => {
 
 				<Route path='*'>404</Route>
 			</Switch>
-		</BrowserRouter>
+		</Router>
 	)
-}
-
-App.propTypes = {
-	hotels: pt.hotels,
 }
