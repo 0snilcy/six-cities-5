@@ -30,6 +30,12 @@ export const useMapState = (mapContainer, locations, city) => {
 		if (map) {
 			map.setView([city.latitude, city.longitude], city.zoom)
 
+			map.eachLayer((layer) => {
+				if (layer.options.icon) {
+					layer.remove()
+				}
+			})
+
 			locations.forEach(({ location: { latitude, longitude }, active }) => {
 				leaflet
 					.marker([latitude, longitude], {

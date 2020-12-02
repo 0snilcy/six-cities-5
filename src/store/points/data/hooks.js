@@ -1,6 +1,9 @@
+import { Route } from 'const'
 import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { browserHistory } from 'services/history'
 import { APIAction } from 'store/api-actions'
+import { useUser } from '../user/hooks'
 import { DataActionCreator } from './action'
 import { dataSelector } from './store'
 
@@ -38,9 +41,14 @@ export const useFavoriteHotels = () => {
 
 export const useFavoriteToggle = () => {
 	const dispatch = useDispatch()
+	const { user } = useUser()
+
 	const setFavorite = useCallback(
-		(id, status) => dispatch(APIAction.setFavorite(id, status)),
-		[]
+		(id, status) =>
+			user
+				? dispatch(APIAction.setFavorite(id, status))
+				: browserHistory.push(Route.LOGIN),
+		[user]
 	)
 
 	return {

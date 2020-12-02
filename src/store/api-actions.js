@@ -35,15 +35,11 @@ export const APIAction = {
 				dispatch(DataActionCreator.changeFavoriteHotel(favoriteHotel))
 			}),
 
-	// getFavorite: () => (dispatch, _, api) =>
-	// 	api.http.get(`${APIRoute.FAVORITE}`).then(({ data: favoriteHotels }) => {
-	// 		dispatch(DataActionCreator.changeFavoriteList(favoriteHotels))
-	// 	}),
-
 	checkAuth: () => (dispatch, _, api) =>
 		api.http
 			.get(APIRoute.LOGIN)
-			.then(({ data }) => dispatch(UserActionCreator.set(data))),
+			.then(({ data }) => dispatch(UserActionCreator.set(data)))
+			.catch(() => {}),
 
 	login: (login) => (dispatch, _, api) =>
 		api.http.post(APIRoute.LOGIN, login).then(({ data }) => {
