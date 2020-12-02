@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { Link } from 'react-router-dom'
 import { Route, RATING_VALUE } from 'const'
-import { useFavoriteStatus } from 'store/points/data/hooks'
+import { useFavoriteToggle } from 'store/points/data/hooks'
 
-export const CardPlace = ({ hotel, onHover, onLeave }) => {
+export const CardPlace = memo(function CardPlace({ hotel, onHover, onLeave }) {
 	const {
 		id,
 		title,
@@ -17,12 +17,12 @@ export const CardPlace = ({ hotel, onHover, onLeave }) => {
 		preview_image: image,
 	} = hotel
 
-	const { setFavorite } = useFavoriteStatus()
+	const { setFavorite } = useFavoriteToggle()
 
 	return (
 		<article
 			className='cities__place-card place-card'
-			onMouseEnter={onHover}
+			onMouseEnter={() => onHover(id)}
 			onMouseLeave={onLeave}
 		>
 			{isPremium && (
@@ -79,7 +79,7 @@ export const CardPlace = ({ hotel, onHover, onLeave }) => {
 			</div>
 		</article>
 	)
-}
+})
 
 CardPlace.propTypes = {
 	hotel: pt.hotel,

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { memo } from 'react'
 import * as pt from 'types'
 import { FormReview } from 'components/FormReview'
 import { RATING_VALUE } from 'const'
 import { useUser } from 'store/points/user/hooks'
 
-export const ListReviews = ({ reviews = [], onSubmitReview }) => {
+export const ListReviews = memo(function ListReviews({
+	reviews = [],
+	onSubmitReview,
+}) {
 	const { user } = useUser()
 
 	if (!reviews.length && !user) return null
@@ -66,7 +69,7 @@ export const ListReviews = ({ reviews = [], onSubmitReview }) => {
 			{user && <FormReview onSubmit={onSubmitReview} />}
 		</section>
 	)
-}
+})
 
 ListReviews.propTypes = {
 	reviews: pt.comments,

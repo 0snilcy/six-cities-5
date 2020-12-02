@@ -1,10 +1,10 @@
 import React, { memo, useRef } from 'react'
 import * as pt from 'types'
-import useMap from './state'
+import { useMapState } from './state'
 
 export const Map = memo(function Map({ locations = [], city }) {
 	const mapRef = useRef()
-	useMap(mapRef, locations, city)
+	useMapState(mapRef, locations, city)
 
 	return (
 		<div

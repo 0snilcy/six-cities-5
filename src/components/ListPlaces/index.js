@@ -1,5 +1,5 @@
 import { CardListType } from 'const'
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import * as pt from 'types'
 import { CardPlace } from '../CardPlace'
 import cl from 'classnames'
@@ -9,6 +9,9 @@ export const ListPlaces = memo(function ListPlaces({
 	type = CardListType.MAIN,
 	onCardHover,
 }) {
+	const onHover = useCallback(onCardHover, [])
+	const onLeave = useCallback(() => onCardHover(null), [])
+
 	return (
 		<div
 			className={cl('places__list', 'cities__places-list tabs__content', {
@@ -20,8 +23,8 @@ export const ListPlaces = memo(function ListPlaces({
 				<CardPlace
 					key={hotel.id}
 					hotel={hotel}
-					onHover={() => onCardHover(hotel.id)}
-					onLeave={() => onCardHover(null)}
+					onHover={onHover}
+					onLeave={onLeave}
 				/>
 			))}
 		</div>

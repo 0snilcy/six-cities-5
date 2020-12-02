@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import leaflet from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-const useMap = (mapContainer, locations, city) => {
+export const useMapState = (mapContainer, locations, city) => {
 	const [map, setMap] = useState()
 
 	useEffect(() => {
@@ -43,5 +43,3 @@ const useMap = (mapContainer, locations, city) => {
 		}
 	}, [locations, map])
 }
-
-export default useMap

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { APIAction } from 'store/api-actions'
 import { DataActionCreator } from './action'
@@ -28,41 +28,43 @@ export const useCity = () => {
 	}
 }
 
-export const useComments = (id) => {
-	const dispatch = useDispatch()
-	useMemo(() => dispatch(APIAction.getComments(id)), [id])
-	const comments = useSelector(dataSelector.activeHotelComments)
+export const useFavoriteHotels = () => {
+	const favoriteHotels = useSelector(dataSelector.favoriteHotels)
 
 	return {
-		comments,
-		sendComment: (comment, rating) =>
-			dispatch(APIAction.sendComment(id, { comment, rating })),
+		favoriteHotels,
 	}
 }
 
-export const useNearby = (id) => {
+export const useFavoriteToggle = () => {
 	const dispatch = useDispatch()
-	useMemo(() => dispatch(APIAction.getNearby(id)), [id])
+	const setFavorite = useCallback(
+		(id, status) => dispatch(APIAction.setFavorite(id, status)),
+		[]
+	)
+
+	return {
+		setFavorite,
+	}
+}
+
+export const useOffer = (id) => {
+	const dispatch = useDispatch()
+
+	const comments = useSelector(dataSelector.activeHotelComments)
 	const nearby = useSelector(dataSelector.activeHotelNearby)
+
+	useMemo(() => {
+		if (id) {
+			dispatch(APIAction.getNearby(id))
+			dispatch(APIAction.getComments(id))
+		}
+	}, [id])
 
 	return {
 		nearby,
-	}
-}
-
-export const useFavoriteStatus = () => {
-	const dispatch = useDispatch()
-
-	return {
-		setFavorite: (id, status) => dispatch(APIAction.setFavorite(id, status)),
-	}
-}
-
-export const useFavoriteList = () => {
-	const dispatch = useDispatch()
-	dispatch(APIAction.getFavorite())
-	const favoriteHotels = useSelector(dataSelector.favoriteHotels)
-	return {
-		favoriteHotels,
+		comments,
+		sendComment: (comment, rating) =>
+			dispatch(APIAction.sendComment(id, { comment, rating })),
 	}
 }

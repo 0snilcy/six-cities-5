@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { ListPlaces } from 'components/ListPlaces'
@@ -7,9 +7,21 @@ import { Header } from 'components/Header'
 import { ListReviews } from 'components/ListReviews'
 import { Map } from 'components/Map'
 import { RATING_VALUE } from 'const'
-import { useComments, useHotels, useNearby } from 'store/points/data/hooks'
+import { usePageOfferState } from './state'
 
-export const PageOffer = ({ hotel }) => {
+export const PageOffer = ({ activeHotelId }) => {
+	const {
+		hotel,
+		activeNearby,
+		setActiveNearby,
+		nearby,
+		comments,
+		onSubmitReview,
+		setFavorite,
+	} = usePageOfferState(activeHotelId)
+
+	if (!hotel.id) return 'Loading...'
+
 	const {
 		id,
 		images,
@@ -25,15 +37,6 @@ export const PageOffer = ({ hotel }) => {
 		host: user,
 		description,
 	} = hotel
-
-	const [activeNearby, setActiveNearby] = useState()
-	const { clearActiveHotel } = useHotels()
-	const { comments, sendComment } = useComments(id)
-	const { nearby } = useNearby(id)
-
-	useEffect(() => {
-		return () => clearActiveHotel()
-	}, [id])
 
 	return (
 		<div className='page'>
@@ -68,11 +71,20 @@ export const PageOffer = ({ hotel }) => {
 								<button
 									className='property__bookmark-button button'
 									type='button'
+									onClick={() => setFavorite(id, !isFavorite)}
 								>
 									<svg
 										className='property__bookmark-icon'
 										width='31'
 										height='33'
+										style={
+											isFavorite
+												? {
+														stroke: '#4481c3',
+														fill: '#4481c3',
+												  }
+												: {}
+										}
 									>
 										<use xlinkHref='#icon-bookmark'></use>
 									</svg>
@@ -148,10 +160,7 @@ export const PageOffer = ({ hotel }) => {
 								</div>
 							</div>
 
-							<ListReviews
-								reviews={comments}
-								onSubmitReview={(data) => sendComment(data.text, data.rating)}
-							/>
+							<ListReviews reviews={comments} onSubmitReview={onSubmitReview} />
 						</div>
 					</div>
 					{!!nearby.length && (
@@ -186,5 +195,5 @@ export const PageOffer = ({ hotel }) => {
 }
 
 PageOffer.propTypes = {
-	hotel: pt.hotel,
+	activeHotelId: pt.number,
 }

@@ -6,6 +6,7 @@ export const APIRoute = {
 	COMMENTS: '/comments',
 	NEARBY: '/nearby',
 	FAVORITE: '/favorite',
+	NOT_FOUND: '/404',
 }
 
 export const Route = {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { CardFavorite } from 'components/CardFavorite'
 import { Header } from 'components/Header'
-import { useFavoriteList } from 'store/points/data/hooks'
+import { useFavoriteHotels } from 'store/points/data/hooks'
 
 export const PageFavorite = () => {
-	const { favoriteHotels } = useFavoriteList()
+	const { favoriteHotels } = useFavoriteHotels()
 
 	return (
 		<div className='page'>

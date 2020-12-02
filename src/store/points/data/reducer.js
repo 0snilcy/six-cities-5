@@ -47,15 +47,6 @@ export const reducer = (state = dataStoreInitial, action) => {
 					hotel.id === action.payload.id ? action.payload : hotel
 				),
 			}
-
-		case DataActionType.CHANGE_FAVORITE_LIST:
-			return {
-				...state,
-				activeHotel: {
-					...state.activeHotel,
-					favoriteHotels: action.payload.map(({ id }) => id),
-				},
-			}
 		default:
 			return state
 	}

@@ -6,7 +6,6 @@ export const DataActionType = {
 	CHANGE_HOTEL_COMMENTS: 'CHANGE_HOTEL_COMMENTS',
 	CHANGE_HOTEL_NEARBY: 'CHANGE_HOTEL_NEARBY',
 	CHANGE_FAVORITE: 'CHANGE_FAVORITE',
-	CHANGE_FAVORITE_LIST: 'CHANGE_FAVORITE_LIST',
 }
 
 export const DataActionCreator = {
@@ -33,9 +32,5 @@ export const DataActionCreator = {
 	changeFavoriteHotel: (hotel) => ({
 		type: DataActionType.CHANGE_FAVORITE,
 		payload: hotel,
-	}),
-	changeFavoriteList: (hotels) => ({
-		type: DataActionType.CHANGE_FAVORITE_LIST,
-		payload: hotels,
 	}),
 }

@@ -34,11 +34,7 @@ export const dataSelector = {
 				hotels.find(({ id: hotelId }) => hotelId === nearbyId)
 			)
 	),
-	favoriteHotels: createSelector(
-		[activeHotel, getHotels],
-		({ favoriteHotels = [] }, hotels) =>
-			favoriteHotels.map((favoriteId) =>
-				hotels.find(({ id: hotelId }) => hotelId === favoriteId)
-			)
+	favoriteHotels: createSelector(getHotels, (hotels) =>
+		hotels.filter(({ is_favorite: isFavorite }) => isFavorite)
 	),
 }
