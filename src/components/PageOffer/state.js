@@ -14,7 +14,10 @@ export const usePageOfferState = (activeHotelId) => {
 		[]
 	)
 
-	useEffect(() => clearActiveHotel, [hotel.id])
+	useEffect(() => {
+		window.scroll(0, 0)
+		return clearActiveHotel
+	}, [hotel.id])
 
 	return {
 		hotel,

@@ -8,21 +8,23 @@ const usePageMainState = () => {
 	const { cityHotels } = useHotels()
 
 	const activeHotels = useMemo(() => {
+		const copy = [...cityHotels]
+
 		switch (activeSort) {
 			case SortOption.POPULAR:
-				return cityHotels
+				return copy
 
 			case SortOption.LOW:
-				return cityHotels.sort((a, b) => a.price - b.price)
+				return copy.sort((a, b) => a.price - b.price)
 
 			case SortOption.HIGH:
-				return cityHotels.sort((a, b) => b.price - a.price)
+				return copy.sort((a, b) => b.price - a.price)
 
 			case SortOption.RATING:
-				return cityHotels.sort((a, b) => b.rating - a.rating)
+				return copy.sort((a, b) => b.rating - a.rating)
 		}
 
-		return cityHotels
+		return copy
 	}, [cityHotels, activeSort])
 
 	return {
