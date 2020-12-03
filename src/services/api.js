@@ -7,15 +7,14 @@ const HttpCode = {
 	UNAUTHORIZED: 401,
 }
 
-export class API {
-	constructor(onUnauthorized) {
+class API {
+	constructor() {
 		this.http = axios.create({
 			baseURL: BACKEND_URL,
 			timeout: REQUEST_TIMEOUT,
 			withCredentials: true,
 		})
 
-		this.onUnauthorized = onUnauthorized
 		this.http.interceptors.response.use(this.onSuccess, this.onFail.bind(this))
 	}
 
@@ -27,10 +26,11 @@ export class API {
 		const { response } = err
 
 		if (response.status === HttpCode.UNAUTHORIZED) {
-			this.onUnauthorized()
-			throw err
+			return console.error('UNAUTHORIZED', err)
 		}
 
 		throw err
 	}
 }
+
+export const api = new API()

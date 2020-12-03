@@ -1,22 +1,24 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useFavoriteToggle, useHotels, useOffer } from 'store/points/data/hooks'
+import { useHotel, useSendComment } from 'store/points/hotel/hooks'
+import { useChangeFavorite, useHotels } from 'store/points/hotels/hooks'
 
 export const usePageOfferState = (activeHotelId) => {
-	const { clearActiveHotel, hotels } = useHotels()
+	const { hotels } = useHotels()
 	const hotel = hotels.find(({ id }) => id === activeHotelId) || {}
 
 	const [activeNearby, setActiveNearby] = useState()
-	const { nearby, comments, sendComment } = useOffer(hotel.id)
-	const { setFavorite } = useFavoriteToggle()
+	const { changeFavorite } = useChangeFavorite()
+	const { comments, nearby, clear } = useHotel(activeHotelId)
+	const { sendComment } = useSendComment()
 
 	const onSubmitReview = useCallback(
-		(data) => sendComment(data.text, data.rating),
+		(data) => sendComment(activeHotelId, data),
 		[]
 	)
 
 	useEffect(() => {
 		window.scroll(0, 0)
-		return clearActiveHotel
+		return clear
 	}, [hotel.id])
 
 	return {
@@ -26,6 +28,6 @@ export const usePageOfferState = (activeHotelId) => {
 		nearby,
 		comments,
 		onSubmitReview,
-		setFavorite,
+		setFavorite: changeFavorite,
 	}
 }

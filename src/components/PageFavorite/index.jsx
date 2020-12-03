@@ -1,7 +1,7 @@
 import React from 'react'
 import { CardFavorite } from 'components/CardFavorite'
 import { Header } from 'components/Header'
-import { useFavoriteHotels } from 'store/points/data/hooks'
+import { useFavoriteHotels } from 'store/points/hotels/hooks'
 
 export const PageFavorite = () => {
 	const { favoriteHotels } = useFavoriteHotels()

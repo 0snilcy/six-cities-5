@@ -15,14 +15,14 @@ export const App = () => {
 					<PageMain />
 				</Route>
 
-				<Route exact path='/login' component={PageLogin} />
-
 				<PrivateRoute exact path='/favorites'>
 					<PageFavorite />
 				</PrivateRoute>
 
+				<Route exact path='/login' component={PageLogin} />
+
 				<Route exact path='/offer/:id'>
-					{({ match }) => <PageOffer activeHotelId={+match.params.id} />}
+					{({ match }) => <PageOffer hotelId={+match.params.id} />}
 				</Route>
 
 				<Route path='*'>404</Route>

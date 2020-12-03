@@ -20,7 +20,7 @@ export const FormReview = ({ onSubmit }) => {
 			onSubmit={(evt) => {
 				evt.preventDefault()
 				onSubmit({
-					text,
+					comment: text,
 					rating,
 				})
 			}}

@@ -9,7 +9,7 @@ import { Map } from 'components/Map'
 import { RATING_VALUE } from 'const'
 import { usePageOfferState } from './state'
 
-export const PageOffer = ({ activeHotelId }) => {
+export const PageOffer = ({ hotelId }) => {
 	const {
 		hotel,
 		activeNearby,
@@ -18,9 +18,7 @@ export const PageOffer = ({ activeHotelId }) => {
 		comments,
 		onSubmitReview,
 		setFavorite,
-	} = usePageOfferState(activeHotelId)
-
-	if (!hotel.id) return 'Loading...'
+	} = usePageOfferState(hotelId)
 
 	const {
 		id,
@@ -195,5 +193,5 @@ export const PageOffer = ({ activeHotelId }) => {
 }
 
 PageOffer.propTypes = {
-	activeHotelId: pt.number,
+	hotelId: pt.number,
 }

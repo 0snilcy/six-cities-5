@@ -1,11 +1,23 @@
 import { useMemo, useState } from 'react'
 import { SortOption } from 'const'
-import { useHotels } from 'store/points/data/hooks'
+import { useHotels } from 'store/points/hotels/hooks'
 
 const usePageMainState = () => {
+	const { hotels } = useHotels()
+
 	const [activeSort, setActiveSort] = useState(SortOption.POPULAR)
 	const [activeCardId, setActiveCardId] = useState()
-	const { cityHotels } = useHotels()
+
+	const cities = useMemo(
+		() => [...new Set(hotels.map(({ city }) => city.name))],
+		[]
+	)
+
+	const [activeCity, setActiveCity] = useState(cities[0])
+	const cityHotels = useMemo(
+		() => hotels.filter(({ city }) => city.name === activeCity),
+		[activeCity, hotels]
+	)
 
 	const activeHotels = useMemo(() => {
 		const copy = [...cityHotels]
@@ -35,6 +47,10 @@ const usePageMainState = () => {
 
 		activeSort,
 		setActiveSort,
+
+		activeCity,
+		setActiveCity,
+		cities,
 	}
 }
 

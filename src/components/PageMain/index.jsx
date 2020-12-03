@@ -1,15 +1,14 @@
+import React from 'react'
+
 import { Header } from 'components/Header'
 import { Map } from 'components/Map'
 import { Sort } from 'components/Sort'
 import { Tabs } from 'components/Tabs'
-import React from 'react'
-import { useCity } from 'store/points/data/hooks'
 import { ListPlaces } from '../ListPlaces'
+
 import usePageMainState from './state'
 
 export const PageMain = () => {
-	const { activeCity } = useCity()
-
 	const {
 		activeHotels,
 
@@ -18,6 +17,10 @@ export const PageMain = () => {
 
 		activeSort,
 		setActiveSort,
+
+		activeCity,
+		setActiveCity,
+		cities,
 	} = usePageMainState()
 
 	return (
@@ -27,7 +30,11 @@ export const PageMain = () => {
 			<main className='page__main page__main--index'>
 				<h1 className='visually-hidden'>Cities</h1>
 
-				<Tabs />
+				<Tabs
+					activeCity={activeCity}
+					setActiveCity={setActiveCity}
+					cities={cities}
+				/>
 
 				<div className='cities'>
 					<div className='cities__places-container container'>

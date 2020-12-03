@@ -1,8 +1,12 @@
-import { combineReducers } from 'redux'
-import { reducer as dataReducer, DATA_NAMESPACE } from './points/data/reducer'
-import { reducer as userReducer, USER_NAMESPACE } from './points/user/reducer'
+import { configureStore } from '@reduxjs/toolkit'
+import { hotelsStore } from './points/hotels/reducer'
+import { hotelStore } from './points/hotel/reducer'
+import { userStore } from './points/user/reducer'
 
-export default combineReducers({
-	[DATA_NAMESPACE]: dataReducer,
-	[USER_NAMESPACE]: userReducer,
+export const store = configureStore({
+	reducer: {
+		[hotelsStore.name]: hotelsStore.reducer,
+		[userStore.name]: userStore.reducer,
+		[hotelStore.name]: hotelStore.reducer,
+	},
 })

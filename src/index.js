@@ -1,25 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { App } from 'components/App'
-import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from 'store/reducer'
-import { API } from 'services/api'
-import thunk from 'redux-thunk'
-import { APIAction } from 'store/api-actions'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { UserActionCreator } from 'store/points/user/action'
-
-const api = new API(() => store.dispatch(UserActionCreator.clear()))
-
-const store = createStore(
-	reducer,
-	composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
-)
+import { store } from 'store/reducer'
+import { hotelsStoreAPI } from 'store/points/hotels/reducer'
+import { userStoreAPI } from 'store/points/user/reducer'
 
 Promise.all([
-	store.dispatch(APIAction.getHotels()),
-	store.dispatch(APIAction.checkAuth()),
+	store.dispatch(hotelsStoreAPI.getHotels()),
+	store.dispatch(userStoreAPI.checkAuth()),
 ]).then(() => {
 	const app = (
 		<Provider store={store}>

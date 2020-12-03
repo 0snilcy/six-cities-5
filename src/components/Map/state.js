@@ -1,9 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import leaflet from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
 export const useMapState = (mapContainer, locations, city) => {
 	const [map, setMap] = useState()
+
+	useMemo(() => {
+		if (map) {
+			map.eachLayer((layer) => {
+				if (layer.options.icon) {
+					layer.remove()
+				}
+			})
+		}
+	}, [city])
 
 	useEffect(() => {
 		const _map = leaflet.map(mapContainer.current, {
@@ -29,12 +39,6 @@ export const useMapState = (mapContainer, locations, city) => {
 	useEffect(() => {
 		if (map) {
 			map.setView([city.latitude, city.longitude], city.zoom)
-
-			map.eachLayer((layer) => {
-				if (layer.options.icon) {
-					layer.remove()
-				}
-			})
 
 			locations.forEach(({ location: { latitude, longitude }, active }) => {
 				leaflet

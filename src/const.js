@@ -32,3 +32,9 @@ export const AuthState = {
 	AUTH: 'AUTH',
 	NOT_AUTH: 'NO_AUTH',
 }
+
+export const StoreNamespace = {
+	HOTELS: 'hotels',
+	HOTEL: 'hotel',
+	USER: 'user',
+}

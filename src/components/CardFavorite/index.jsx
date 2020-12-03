@@ -3,7 +3,7 @@ import * as pt from 'types'
 import cl from 'classnames'
 import { RATING_VALUE, Route } from 'const'
 import { Link } from 'react-router-dom'
-import { useFavoriteToggle } from 'store/points/data/hooks'
+import { useChangeFavorite } from 'store/points/hotels/hooks'
 
 export const CardFavorite = memo(function CardFavorite({ hotel }) {
 	const {
@@ -15,7 +15,7 @@ export const CardFavorite = memo(function CardFavorite({ hotel }) {
 		price,
 		preview_image: smallImage,
 	} = hotel
-	const { setFavorite } = useFavoriteToggle()
+	const { changeFavorite } = useChangeFavorite()
 
 	return (
 		<article className='favorites__card place-card'>
@@ -41,7 +41,7 @@ export const CardFavorite = memo(function CardFavorite({ hotel }) {
 							'place-card__bookmark-button--active': isFavorite,
 						})}
 						type='button'
-						onClick={() => setFavorite(id, !isFavorite)}
+						onClick={() => changeFavorite(id, !isFavorite)}
 					>
 						<svg className='place-card__bookmark-icon' width='18' height='19'>
 							<use xlinkHref='#icon-bookmark'></use>
