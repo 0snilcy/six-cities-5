@@ -6,27 +6,31 @@ import { PageFavorite } from 'components/PageFavorite'
 import { PageOffer } from 'components/PageOffer'
 import { PrivateRoute } from 'components/PrivateRoute'
 import { browserHistory } from 'services/history'
+import { Spinner } from 'components/Spinner'
 
 export const App = () => {
 	return (
-		<Router history={browserHistory}>
-			<Switch>
-				<Route exact path='/'>
-					<PageMain />
-				</Route>
+		<>
+			<Spinner />
+			<Router history={browserHistory}>
+				<Switch>
+					<Route exact path='/'>
+						<PageMain />
+					</Route>
 
-				<PrivateRoute exact path='/favorites'>
-					<PageFavorite />
-				</PrivateRoute>
+					<PrivateRoute exact path='/favorites'>
+						<PageFavorite />
+					</PrivateRoute>
 
-				<Route exact path='/login' component={PageLogin} />
+					<Route exact path='/login' component={PageLogin} />
 
-				<Route exact path='/offer/:id'>
-					{({ match }) => <PageOffer hotelId={+match.params.id} />}
-				</Route>
+					<Route exact path='/offer/:id'>
+						{({ match }) => <PageOffer hotelId={+match.params.id} />}
+					</Route>
 
-				<Route path='*'>404</Route>
-			</Switch>
-		</Router>
+					<Route path='*'>404</Route>
+				</Switch>
+			</Router>
+		</>
 	)
 }

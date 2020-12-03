@@ -24,3 +24,9 @@ export const userStore = createSlice({
 		[userStoreAPI.checkAuth.fulfilled]: (_, { payload }) => payload,
 	},
 })
+
+const getUser = (store) => store[userStore.name]
+
+export const userSelector = {
+	getUser,
+}

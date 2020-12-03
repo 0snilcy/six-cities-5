@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { hotelsStoreAPI } from './reducer'
-import { hotelsSelector } from './selectors'
+import { hotelsSelector, hotelsStoreAPI } from './'
 
 export const useHotels = () => {
 	const hotels = useSelector(hotelsSelector.getHotels)

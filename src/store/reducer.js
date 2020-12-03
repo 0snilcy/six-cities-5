@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { hotelsStore } from './points/hotels/reducer'
-import { hotelStore } from './points/hotel/reducer'
-import { userStore } from './points/user/reducer'
+import { hotelsStore } from './points/hotels'
+import { hotelStore } from './points/hotel'
+import { userStore } from './points/user'
 
 export const store = configureStore({
 	reducer: {

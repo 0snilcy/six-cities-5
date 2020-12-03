@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { hotelStore, hotelStoreAPI } from './reducer'
-import { hotelSelector } from './selectors'
+import { hotelStore, hotelStoreAPI, hotelSelector } from '.'
 
 export const useHotel = (hotelId) => {
 	const comments = useSelector(hotelSelector.getHotelComments)

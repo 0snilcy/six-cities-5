@@ -3,8 +3,8 @@ import { render } from 'react-dom'
 import { App } from 'components/App'
 import { Provider } from 'react-redux'
 import { store } from 'store/reducer'
-import { hotelsStoreAPI } from 'store/points/hotels/reducer'
-import { userStoreAPI } from 'store/points/user/reducer'
+import { hotelsStoreAPI } from 'store/points/hotels'
+import { userStoreAPI } from 'store/points/user'
 
 Promise.all([
 	store.dispatch(hotelsStoreAPI.getHotels()),

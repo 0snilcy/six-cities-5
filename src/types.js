@@ -7,6 +7,7 @@ export const _number = pt.number
 export const string = pt.string.isRequired
 export const _string = pt.string
 export const bool = pt.bool.isRequired
+export const _bool = pt.bool
 export const stringArr = pt.arrayOf(string)
 export const numArr = pt.arrayOf(number)
 export const component = pt.node
