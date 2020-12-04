@@ -3,7 +3,7 @@ import { PageMain } from '../PageMain'
 import { Router, Switch, Route } from 'react-router-dom'
 import { PageLogin } from 'components/PageLogin'
 import { PageFavorite } from 'components/PageFavorite'
-// import { PageOffer } from 'components/PageOffer'
+import { PageOffer } from 'components/PageOffer'
 import { PrivateRoute } from 'components/PrivateRoute'
 import { browserHistory } from 'services/history'
 import { Notifer } from 'components/Notifer'
@@ -25,7 +25,7 @@ export const App = () => {
 					<Route exact path='/login' component={PageLogin} />
 
 					<Route exact path='/offer/:id'>
-						{/* {({ match }) => <PageOffer hotelId={+match.params.id} />} */}
+						{({ match }) => <PageOffer hotelId={+match.params.id} />}
 					</Route>
 
 					<Route path='*'>404</Route>

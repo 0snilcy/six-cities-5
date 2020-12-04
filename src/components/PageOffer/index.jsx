@@ -8,8 +8,9 @@ import { ListReviews } from 'components/ListReviews'
 import { Map } from 'components/Map'
 import { RATING_VALUE } from 'const'
 import { usePageOfferState } from './state'
+import { observer } from 'mobx-react-lite'
 
-export const PageOffer = ({ hotelId }) => {
+export const PageOffer = observer(function PageOffer({ hotelId }) {
 	const {
 		hotel,
 		activeNearby,
@@ -190,7 +191,7 @@ export const PageOffer = ({ hotelId }) => {
 			</main>
 		</div>
 	)
-}
+})
 
 PageOffer.propTypes = {
 	hotelId: pt.number,

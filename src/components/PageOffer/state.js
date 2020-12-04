@@ -1,31 +1,41 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useHotel, useSendComment } from 'store/points/hotel/hooks'
-import { useChangeFavorite, useHotels } from 'store/points/hotels/hooks'
+import { api } from 'services/api'
+import { hotelsStore } from 'store/hotels'
 
 export const usePageOfferState = (activeHotelId) => {
-	const { hotels } = useHotels()
+	const { hotels, changeFavorite } = hotelsStore
+
 	const hotel = hotels.find(({ id }) => id === activeHotelId) || {}
 
+	const [comments, setComments] = useState([])
+	const [nearby, setNearby] = useState([])
 	const [activeNearby, setActiveNearby] = useState()
-	const { changeFavorite } = useChangeFavorite()
-	const { comments, nearby, clear } = useHotel(activeHotelId)
-	const { sendComment } = useSendComment()
 
 	const onSubmitReview = useCallback(
-		(data) => sendComment(activeHotelId, data),
-		[]
+		(comment) => {
+			api.sendComment(activeHotelId, comment).then(setComments)
+		},
+		[activeHotelId]
 	)
 
 	useEffect(() => {
 		window.scroll(0, 0)
-		return clear
-	}, [hotel.id])
+		api.getComments(activeHotelId).then(setComments)
+		api
+			.getNearby(activeHotelId)
+			.then((nearbyHotels) => setNearby(nearbyHotels.map(({ id }) => id)))
+
+		return () => {
+			setNearby([])
+			setComments([])
+		}
+	}, [activeHotelId])
 
 	return {
 		hotel,
 		activeNearby,
 		setActiveNearby,
-		nearby,
+		nearby: nearby.map((id) => hotels.find((el) => el.id === id)),
 		comments,
 		onSubmitReview,
 		setFavorite: changeFavorite,

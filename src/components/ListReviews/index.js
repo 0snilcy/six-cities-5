@@ -2,13 +2,13 @@ import React, { memo } from 'react'
 import * as pt from 'types'
 import { FormReview } from 'components/FormReview'
 import { RATING_VALUE } from 'const'
-import { useUser } from 'store/points/user/hooks'
+import { userStore } from 'store/user'
 
 export const ListReviews = memo(function ListReviews({
 	reviews = [],
 	onSubmitReview,
 }) {
-	const { user } = useUser()
+	const { user } = userStore
 
 	if (!reviews.length && !user) return null
 

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { APIRoute } from 'const'
 import { appStore } from 'store/app'
-import { store } from '../store/user'
 
 const BACKEND_URL = `https://5.react.pages.academy/six-cities`
 const REQUEST_TIMEOUT = 5000
@@ -60,6 +59,18 @@ class API {
 
 	changeFavorite(id, status) {
 		return this.http.post(`${APIRoute.FAVORITE}/${id}/${+status}`)
+	}
+
+	sendComment(id, comment) {
+		return this.http.post(`${APIRoute.COMMENTS}/${id}`, comment)
+	}
+
+	getComments(id) {
+		return this.http.get(`${APIRoute.COMMENTS}/${id}`)
+	}
+
+	getNearby(id) {
+		return this.http.get(`${APIRoute.HOTELS}/${id}${APIRoute.NEARBY}`)
 	}
 }
 
