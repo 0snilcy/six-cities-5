@@ -3,7 +3,8 @@ import * as pt from 'types'
 import cl from 'classnames'
 import { RATING_VALUE, Route } from 'const'
 import { Link } from 'react-router-dom'
-import { useChangeFavorite } from 'store/points/hotels/hooks'
+import { hotelsStore } from 'store/hotels'
+// import { useChangeFavorite } from 'store/points/hotels/hooks'
 
 export const CardFavorite = memo(function CardFavorite({ hotel }) {
 	const {
@@ -15,7 +16,7 @@ export const CardFavorite = memo(function CardFavorite({ hotel }) {
 		price,
 		preview_image: smallImage,
 	} = hotel
-	const { changeFavorite } = useChangeFavorite()
+	const { changeFavorite } = hotelsStore
 
 	return (
 		<article className='favorites__card place-card'>

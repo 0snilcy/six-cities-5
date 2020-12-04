@@ -3,7 +3,7 @@ import * as pt from 'types'
 import cl from 'classnames'
 import { Link } from 'react-router-dom'
 import { Route, RATING_VALUE } from 'const'
-import { useChangeFavorite } from 'store/points/hotels/hooks'
+import { hotelsStore } from 'store/hotels'
 
 export const CardPlace = memo(function CardPlace({ hotel, onHover, onLeave }) {
 	const {
@@ -17,7 +17,7 @@ export const CardPlace = memo(function CardPlace({ hotel, onHover, onLeave }) {
 		preview_image: image,
 	} = hotel
 
-	const { changeFavorite } = useChangeFavorite()
+	const { changeFavorite } = hotelsStore
 
 	return (
 		<article

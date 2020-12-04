@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 import { SortOption } from 'const'
-import { useHotels } from 'store/points/hotels/hooks'
+import { hotelsStore } from 'store/hotels'
 
 const usePageMainState = () => {
-	const { hotels } = useHotels()
+	const { hotels } = hotelsStore
 
 	const [activeSort, setActiveSort] = useState(SortOption.POPULAR)
 	const [activeCardId, setActiveCardId] = useState()

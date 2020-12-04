@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { useUser } from 'store/points/user/hooks'
+import { userStore } from 'store/user'
 
 const usePageLoginState = () => {
-	const { login } = useUser()
+	const { login } = userStore
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 

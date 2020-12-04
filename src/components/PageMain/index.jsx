@@ -7,8 +7,9 @@ import { Tabs } from 'components/Tabs'
 import { ListPlaces } from '../ListPlaces'
 
 import usePageMainState from './state'
+import { observer } from 'mobx-react-lite'
 
-export const PageMain = () => {
+export const PageMain = observer(function PageMain() {
 	const {
 		activeHotels,
 
@@ -65,6 +66,4 @@ export const PageMain = () => {
 			</main>
 		</div>
 	)
-}
-
-PageMain.propTypes = {}
+})

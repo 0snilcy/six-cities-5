@@ -11,6 +11,8 @@ parserOptions:
   ecmaVersion: 10
   sourceType: module
 
+parser: 'babel-eslint'
+
 plugins: ['react']
 
 settings:

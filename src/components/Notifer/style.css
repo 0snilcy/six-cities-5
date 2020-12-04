@@ -1,0 +1,62 @@
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.notifer {
+	right: 1rem;
+	top: 1rem;
+	position: fixed;
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.notifer > div {
+	width: 1.5rem;
+	height: 1.5rem;
+	pointer-events: none;
+	display: none;
+	white-space: nowrap;
+}
+
+.notifer > .notifer--active {
+	display: flex;
+}
+
+.notifer-load {
+	border-radius: 50%;
+	border: 0.25rem solid #4dd0e1;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	animation: spin forwards 0.5s linear infinite;
+	margin-bottom: 1rem;
+}
+
+.notifer-error {
+	position: relative;
+	justify-content: flex-end;
+	padding-right: 2.5rem;
+	align-items: center;
+}
+
+.notifer-error::after,
+.notifer-error::before {
+	content: '';
+	position: absolute;
+	background-color: #e91e63;
+	right: 0;
+	width: 1.5rem;
+	height: 0.2rem;
+	top: calc(50% - 0.125rem);
+}
+
+.notifer-error::after {
+	transform: rotate(45deg);
+}
+
+.notifer-error::before {
+	transform: rotate(135deg);
+}

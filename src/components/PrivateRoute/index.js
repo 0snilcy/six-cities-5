@@ -1,11 +1,11 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { useUser } from 'store/points/user/hooks'
 import * as pt from 'types'
 import { Route as Path } from 'const'
+import { userStore } from 'store/user'
 
 export function PrivateRoute({ children, ...rest }) {
-	const { user } = useUser()
+	const { user } = userStore
 
 	return (
 		<Route

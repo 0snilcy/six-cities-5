@@ -1,10 +1,11 @@
 import { Route } from 'const'
 import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
-import { useUser } from 'store/points/user/hooks'
+import { observer } from 'mobx-react-lite'
+import { userStore } from 'store/user'
 
-export const Header = memo(function Header() {
-	const { user } = useUser()
+export const Header = observer(function Header() {
+	const { user } = userStore
 
 	return (
 		<header className='header'>
