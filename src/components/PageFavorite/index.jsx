@@ -1,14 +1,11 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { CardFavorite } from 'components/CardFavorite'
 import { Header } from 'components/Header'
-import { observer } from 'mobx-react-lite'
-import { hotelsStore } from 'store/hotels'
+import { useHotels } from 'services/api'
 
-export const PageFavorite = observer(function PageFavorite() {
-	const { hotels } = hotelsStore
-	const favoriteHotels = useMemo(() => {
-		return hotels.filter(({ is_favorite }) => is_favorite)
-	}, [hotels])
+export const PageFavorite = function PageFavorite() {
+	const { hotels } = useHotels()
+	const favoriteHotels = hotels.filter(({ is_favorite }) => is_favorite)
 
 	return (
 		<div className='page'>
@@ -76,6 +73,6 @@ export const PageFavorite = observer(function PageFavorite() {
 			</footer>
 		</div>
 	)
-})
+}
 
 PageFavorite.propTypes = {}

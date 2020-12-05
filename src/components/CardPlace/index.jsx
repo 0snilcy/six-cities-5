@@ -1,9 +1,9 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import * as pt from 'types'
 import cl from 'classnames'
 import { Link } from 'react-router-dom'
 import { Route, RATING_VALUE } from 'const'
-import { hotelsStore } from 'store/hotels'
+import { API } from 'services/api'
 
 export const CardPlace = memo(function CardPlace({ hotel, onHover, onLeave }) {
 	const {
@@ -17,7 +17,7 @@ export const CardPlace = memo(function CardPlace({ hotel, onHover, onLeave }) {
 		preview_image: image,
 	} = hotel
 
-	const { changeFavorite } = hotelsStore
+	const changeFavorite = useCallback(API.changeFavorite, [])
 
 	return (
 		<article

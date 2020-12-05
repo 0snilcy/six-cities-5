@@ -1,11 +1,10 @@
 import { Route } from 'const'
-import React from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
-import { observer } from 'mobx-react-lite'
-import { userStore } from 'store/user'
+import { useUser } from 'services/api'
 
-export const Header = observer(function Header() {
-	const { user } = userStore
+export const Header = memo(function Header() {
+	const { user } = useUser()
 
 	return (
 		<header className='header'>

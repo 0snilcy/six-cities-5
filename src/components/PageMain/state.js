@@ -1,19 +1,20 @@
 import { useMemo, useState } from 'react'
 import { SortOption } from 'const'
-import { hotelsStore } from 'store/hotels'
+import { useHotels } from 'services/api'
 
 const usePageMainState = () => {
-	const { hotels } = hotelsStore
+	const { hotels } = useHotels()
 
 	const [activeSort, setActiveSort] = useState(SortOption.POPULAR)
 	const [activeCardId, setActiveCardId] = useState()
 
 	const cities = useMemo(
 		() => [...new Set(hotels.map(({ city }) => city.name))],
-		[]
+		[hotels]
 	)
 
 	const [activeCity, setActiveCity] = useState(cities[0])
+
 	const cityHotels = useMemo(
 		() => hotels.filter(({ city }) => city.name === activeCity),
 		[activeCity, hotels]

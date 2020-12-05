@@ -1,77 +1,87 @@
 import axios from 'axios'
-import { APIRoute } from 'const'
-import { appStore } from 'store/app'
+import { APIRoute, Route } from 'const'
+import useSWR, { mutate } from 'swr'
+import { browserHistory } from './history'
 
 const BACKEND_URL = `https://5.react.pages.academy/six-cities`
 const REQUEST_TIMEOUT = 5000
 
-const HttpCode = {
-	UNAUTHORIZED: 401,
+const http = axios.create({
+	baseURL: BACKEND_URL,
+	timeout: REQUEST_TIMEOUT,
+	withCredentials: true,
+})
+
+http.interceptors.response.use(
+	({ data }) => data,
+	({ response }) => console.log(response)
+)
+
+export const fetcher = (url) => http.get(url)
+
+export const useHotels = () => {
+	const { data } = useSWR(APIRoute.HOTELS, {
+		initialData: [],
+	})
+
+	return {
+		hotels: data,
+	}
 }
 
-class API {
-	constructor() {
-		this.http = axios.create({
-			baseURL: BACKEND_URL,
-			timeout: REQUEST_TIMEOUT,
-			withCredentials: true,
+export const useUser = () => {
+	const { data } = useSWR(APIRoute.LOGIN)
+	// console.log('useUser', data)
+
+	return {
+		user: data,
+		login: API.login,
+	}
+}
+
+export const API = {
+	login(data) {
+		return http.post(APIRoute.LOGIN, data).then((res) => {
+			mutate(APIRoute.LOGIN, res, false)
+			mutate(APIRoute.HOTELS, API.getHotels).then(() =>
+				browserHistory.push(Route.FAVORITES)
+			)
 		})
-
-		this.http.interceptors.response.use(
-			this._onSuccess,
-			this._onFail.bind(this)
-		)
-
-		this.http.interceptors.request.use((config) => {
-			appStore.appendLoading()
-			return config
-		})
-	}
-
-	_onSuccess(response) {
-		appStore.ejectLoading()
-		return response.data
-	}
-
-	_onFail(err) {
-		const { response } = err
-		appStore.ejectLoading()
-		appStore.appendError(response.statusText)
-
-		if (response.status === HttpCode.UNAUTHORIZED) {
-			return console.error('UNAUTHORIZED', err)
-		}
-
-		throw err
-	}
-
-	getHotels() {
-		return this.http.get(APIRoute.HOTELS)
-	}
+	},
 
 	checkAuth() {
-		return this.http.get(APIRoute.LOGIN)
-	}
+		return http
+			.get(APIRoute.LOGIN)
+			.then((res) => mutate(APIRoute.LOGIN, res, false))
+	},
 
-	login(data) {
-		return this.http.post(APIRoute.LOGIN, data)
-	}
+	getHotels() {
+		return http
+			.get(APIRoute.HOTELS)
+			.then((res) => mutate(APIRoute.HOTELS, res, false))
+	},
 
 	changeFavorite(id, status) {
-		return this.http.post(`${APIRoute.FAVORITE}/${id}/${+status}`)
-	}
+		return http
+			.post(`${APIRoute.FAVORITE}/${id}/${+status}`)
+			.then((hotel) =>
+				mutate(
+					APIRoute.HOTELS,
+					(hotels) => hotels.map((el) => (el.id === hotel.id ? hotel : el)),
+					false
+				)
+			)
+	},
 
 	sendComment(id, comment) {
-		return this.http.post(`${APIRoute.COMMENTS}/${id}`, comment)
-	}
+		return http.post(`${APIRoute.COMMENTS}/${id}`, comment)
+	},
 
 	getComments(id) {
-		return this.http.get(`${APIRoute.COMMENTS}/${id}`)
-	}
+		return http.get(`${APIRoute.COMMENTS}/${id}`)
+	},
 
 	getNearby(id) {
-		return this.http.get(`${APIRoute.HOTELS}/${id}${APIRoute.NEARBY}`)
-	}
+		return http.get(`${APIRoute.HOTELS}/${id}${APIRoute.NEARBY}`)
+	},
 }
-
-export const api = new API()

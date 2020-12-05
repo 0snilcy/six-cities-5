@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { userStore } from 'store/user'
+import { useUser } from 'services/api'
 
 const usePageLoginState = () => {
-	const { login } = userStore
+	const { login } = useUser()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 

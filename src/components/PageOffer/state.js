@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import { api } from 'services/api'
-import { hotelsStore } from 'store/hotels'
+import { API, useHotels } from 'services/api'
 
 export const usePageOfferState = (activeHotelId) => {
-	const { hotels, changeFavorite } = hotelsStore
+	const { hotels } = useHotels()
+	const changeFavorite = API.changeFavorite
 
 	const hotel = hotels.find(({ id }) => id === activeHotelId) || {}
 
@@ -13,17 +13,17 @@ export const usePageOfferState = (activeHotelId) => {
 
 	const onSubmitReview = useCallback(
 		(comment) => {
-			api.sendComment(activeHotelId, comment).then(setComments)
+			API.sendComment(activeHotelId, comment).then(setComments)
 		},
 		[activeHotelId]
 	)
 
 	useEffect(() => {
 		window.scroll(0, 0)
-		api.getComments(activeHotelId).then(setComments)
-		api
-			.getNearby(activeHotelId)
-			.then((nearbyHotels) => setNearby(nearbyHotels.map(({ id }) => id)))
+		API.getComments(activeHotelId).then(setComments)
+		API.getNearby(activeHotelId).then((nearbyHotels) =>
+			setNearby(nearbyHotels.map(({ id }) => id))
+		)
 
 		return () => {
 			setNearby([])

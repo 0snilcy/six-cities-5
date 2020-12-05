@@ -1,12 +1,10 @@
 import { Header } from 'components/Header'
-import { Route } from 'const'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import usePageLoginState from './state'
 
-export const PageLogin = () => {
+export const PageLogin = function PageLogin() {
 	const { email, setEmail, password, setPassword, login } = usePageLoginState()
-	const history = useHistory()
+
 	return (
 		<div className='page page--gray page--login'>
 			<Header />
@@ -48,7 +46,7 @@ export const PageLogin = () => {
 									login({
 										email,
 										password,
-									}).then(() => history.push(Route.FAVORITES))
+									})
 								}}
 							>
 								Sign in
