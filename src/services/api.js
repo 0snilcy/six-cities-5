@@ -3,7 +3,7 @@ import { APIRoute, Route } from 'const'
 import useSWR, { mutate } from 'swr'
 import { browserHistory } from './history'
 
-const BACKEND_URL = `https://5.react.pages.academy/six-cities`
+const BACKEND_URL = `https://6.react.pages.academy/six-cities`
 const REQUEST_TIMEOUT = 5000
 
 const http = axios.create({
