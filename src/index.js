@@ -5,21 +5,30 @@ import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from 'store/reducer'
 import { API } from 'services/api'
-import thunk from 'redux-thunk'
-import { APIAction } from 'store/api-actions'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { UserActionCreator } from 'store/points/user/action'
+import { createEpicMiddleware } from 'redux-observable'
+import { rootEpic } from 'store/epics'
+import { ApiActionCreator } from 'store/points/api/action'
+import { redirectMiddleware } from 'store/middleware'
 
 const api = new API(() => store.dispatch(UserActionCreator.clear()))
+const epicMiddleware = createEpicMiddleware({
+	dependencies: {
+		api,
+	},
+})
 
 const store = createStore(
 	reducer,
-	composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+	composeWithDevTools(applyMiddleware(epicMiddleware, redirectMiddleware))
 )
 
+epicMiddleware.run(rootEpic)
+
 Promise.all([
-	store.dispatch(APIAction.getHotels()),
-	store.dispatch(APIAction.checkAuth()),
+	store.dispatch(ApiActionCreator.getHotels()),
+	store.dispatch(ApiActionCreator.checkAuth()),
 ]).then(() => {
 	const app = (
 		<Provider store={store}>

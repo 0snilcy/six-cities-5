@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { browserHistory } from 'services/history'
 import { APIAction } from 'store/api-actions'
+import { ApiActionCreator } from '../api/action'
 import { useUser } from '../user/hooks'
 import { DataActionCreator } from './action'
 import { dataSelector } from './store'
@@ -46,7 +47,7 @@ export const useFavoriteToggle = () => {
 	const setFavorite = useCallback(
 		(id, status) =>
 			user
-				? dispatch(APIAction.setFavorite(id, status))
+				? dispatch(ApiActionCreator.setFavorite({ id, status }))
 				: browserHistory.push(Route.LOGIN),
 		[user]
 	)

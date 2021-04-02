@@ -19,3 +19,4 @@ settings:
 
 rules:
   object-curly-spacing: [2, 'always']
+  no-console: [0]
